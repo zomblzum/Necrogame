@@ -49,7 +49,7 @@ public abstract class Minion : Character
     /// <summary>
     /// Выбираем текущий список цели по тегам врагом
     /// </summary>
-    public void FindTargetsByTags()
+    public virtual void FindTargetsByTags()
     {
         attackTargets.Clear();
         foreach(string tag in targetsTags)

@@ -30,6 +30,13 @@ public class ZombieMinion : Minion
         GetClosestTarget();
     }
 
+    public override void FindTargetsByTags()
+    {
+        base.FindTargetsByTags();
+        attackTargets.RemoveAll(item => item.GetComponent<ZombieMinion>() != null);
+        attackTargets.RemoveAll(item => item == null);
+    }
+
     public override void GoUnderControl()
     {
         underControl = true;

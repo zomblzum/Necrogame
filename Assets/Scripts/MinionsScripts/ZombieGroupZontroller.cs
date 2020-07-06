@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZombieGroupZontroller : MinionGroupController
 {
+    public MinionBehaviour minionBehaviour;
+
     public override void AttackCommand()
     {
         //throw new System.NotImplementedException();
@@ -26,7 +28,7 @@ public class ZombieGroupZontroller : MinionGroupController
 
     public override void MinionAdded()
     {
-        if(minionGroup.minions.Count > minionGroup.maxMinions)
+        if(minionGroup.minions.Count > minionBehaviour.maxMinions)
         {
             SetGroupOutControl();
         }
@@ -34,7 +36,7 @@ public class ZombieGroupZontroller : MinionGroupController
 
     public override void MinionRemoved()
     {
-        if (minionGroup.minions.Count <= minionGroup.maxMinions)
+        if (minionGroup.minions.Count <= minionBehaviour.maxMinions)
         {
             SetGroupUnderControl();
         }

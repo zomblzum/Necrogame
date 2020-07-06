@@ -16,9 +16,6 @@ public class MinionBehaviour : SpellBehaviour
         public string minionType;
         [Header("Иконка этой группы")]
         public Sprite minionIcon;
-        [Header("Максимальное количество миньонов в группе")]
-        [Tooltip("Вынесено в паблик поле для случая, если понадобится расширять или уменьшать допустимый объем группы")]
-        public int maxMinions = 10;
         [Header("Контроллер для особого поведения группы")]
         public MinionGroupController groupController;
 
@@ -69,21 +66,15 @@ public class MinionBehaviour : SpellBehaviour
         {
             groupController.MoveCommand(position);
         }
-
-        /// <summary>
-        /// Возможность добавлять в эту группу
-        /// </summary>
-        /// <returns>true, если можно добавить в эту группу</returns>
-        public bool CanAdd()
-        {
-            return maxMinions > minions.Count;
-        }
     }
 
     [Header("Отряд прислужников")]
     public List<MinionGroup> minionGroups;
     [Header("Номер выбранной группы прислужников")]
     public int currentGroup;
+    [Header("Максимальное количество миньонов в группе")]
+    [Tooltip("Вынесено в паблик поле для случая, если понадобится расширять или уменьшать допустимый объем группы")]
+    public int maxMinions = 10;
     [Header("Изображение выбранной группы")]
     public Image currentGroupImage;
     [Header("Количество прислужников в выбранной группе")]
@@ -236,7 +227,7 @@ public class MinionBehaviour : SpellBehaviour
     /// </summary>
     public void UpdateMinionsCounter()
     {
-        currentGroupCount.SetText(minionGroups[currentGroup].minions.Count.ToString() + "/" + minionGroups[currentGroup].maxMinions.ToString());
+        currentGroupCount.SetText(minionGroups[currentGroup].minions.Count.ToString() + "/" + maxMinions.ToString());
     }
 
     /// <summary>
@@ -250,13 +241,13 @@ public class MinionBehaviour : SpellBehaviour
     /// <summary>
     /// Определяет возможность добавить прислужника в общий пул
     /// </summary>
-    public bool CanAddMinion(string minionType)
+    public bool CanAddMinion()
     {
         foreach(MinionGroup minionGroup in minionGroups)
         {
-            if(minionGroup.minionType == minionType)
+            if(minionGroup.minionType == "All")
             {
-                return minionGroup.CanAdd();
+                return minionGroup.minions.Count < maxMinions;
             }
         }
 

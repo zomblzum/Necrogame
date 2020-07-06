@@ -95,7 +95,7 @@ public class SummonBehaviour : SpellBehaviour
 
     private void StartSummoner(int summonerId)
     {
-        if(summoners[summonerId].CanSummon(player) && minionBehaviour.CanAddMinion(summoners[summonerId].minionType))
+        if(summoners[summonerId].CanSummon(player) && minionBehaviour.CanAddMinion())
         {
             summoners[summonerId].StartSummoning();
         }
