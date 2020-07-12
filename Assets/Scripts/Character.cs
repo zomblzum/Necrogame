@@ -64,6 +64,22 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         curHealth = health;
     }
 
+    /// <summary>
+    /// Назначить приоритетную цель
+    /// </summary>
+    public void SetPriorityTarget(GameObject attackable)
+    {
+        attackTarget = attackable;
+    }
+
+    /// <summary>
+    /// Текущая цель для атаки
+    /// </summary>
+    public GameObject GetCurrentTarget()
+    {
+        return attackTarget;
+    }
+
     private void FixedUpdate()
     {
         if (stunDuration <= 0)

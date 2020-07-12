@@ -6,11 +6,8 @@ using UnityEngine;
 public class ExitGame : MonoBehaviour
 {
     
-    void Update()
+    public void CloseGame()
     {
-        if (Input.GetButtonDown("Cancel"))
-        {
-            Application.Quit(0);
-        }
+        Application.Quit(0);
     }
 }

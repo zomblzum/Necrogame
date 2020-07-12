@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\EnemyScripts\AutoAggroEnemy.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Corpse.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyScripts\EnemyPriorityZone.cs" />
     <Compile Include="Assets\Scripts\IAttackable.cs" />
     <Compile Include="Assets\Scripts\IDieable.cs" />
     <Compile Include="Assets\Scripts\IStunable.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Assets\Scripts\SpellScripts\StunLaserSpell.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ThirdPersonOrbitCamBasic.cs" />
     <Compile Include="Assets\VFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets\VFX\Demo\Assets\CFX_Demo_New.cs" />

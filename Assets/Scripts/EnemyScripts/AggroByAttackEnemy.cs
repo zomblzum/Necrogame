@@ -3,19 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Враг, автоматически начинающий бой, после получения урона
+/// Враг, переагривающийся на последнюю атаковавшую цель, если основная цель не бьет
 /// </summary>
-public class AggroByAttackEnemy : Enemy
+public class AggroByAttackEnemy : AutoAggroEnemy
 {
+    [Header("Время, после которого сменится цель, если текущая цель не будет атаковать")]
+    public float waitTime = 3f;
+
+    private GameObject lastAttackedTarget;
+    private float curTime = 0f;
+
     public override void GetHit(GameObject attackFrom, int damage)
     {
         base.GetHit(attackFrom, damage);
-        inAggro = true;
+
+        lastAttackedTarget = attackFrom;
+
+        if(attackFrom == GetCurrentTarget())
+        {
+            curTime = 0f;
+        }
     }
 
-    public override void StunForTime(float stunTime)
+    private void Update()
     {
-        base.StunForTime(stunTime);
-        inAggro = true;
+        if(curTime >= waitTime && lastAttackedTarget != null)
+        {
+            SetPriorityTarget(lastAttackedTarget);
+        }
+        else
+        {
+            curTime += Time.deltaTime;
+        }
     }
 }
