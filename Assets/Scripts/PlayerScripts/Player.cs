@@ -85,10 +85,6 @@ public class Player : MonoBehaviour, IAttackable, IDieable
     public void Die()
     {
         //Тестовая версия смерти
-        //Включаем курсор обратно и меняем сцену на меню
-        //Потом это лучше вынести в отдельный скрипт в меню
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         new SceneChanger().ChangeScene("MenuScene");
     }
 

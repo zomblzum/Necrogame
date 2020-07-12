@@ -67,7 +67,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// <summary>
     /// Назначить приоритетную цель
     /// </summary>
-    public void SetPriorityTarget(GameObject attackable)
+    public void SetAttackTarget(GameObject attackable)
     {
         attackTarget = attackable;
     }

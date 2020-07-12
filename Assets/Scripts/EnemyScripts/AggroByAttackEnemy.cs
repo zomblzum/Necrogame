@@ -29,7 +29,7 @@ public class AggroByAttackEnemy : AutoAggroEnemy
     {
         if(curTime >= waitTime && lastAttackedTarget != null)
         {
-            SetPriorityTarget(lastAttackedTarget);
+            SetAttackTarget(lastAttackedTarget);
         }
         else
         {

@@ -114,6 +114,7 @@
     <Compile Include="Assets\Scripts\SpellScripts\Spell.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\SpellUI.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\StunLaserSpell.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\CursorEnabler.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\SceneChanger.cs" />

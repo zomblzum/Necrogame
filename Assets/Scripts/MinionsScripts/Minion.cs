@@ -23,7 +23,7 @@ public abstract class Minion : Character
     {
         base.CharacterBehaviour();
 
-        if (attackTarget == null)
+        if (attackTarget == null || !inAggro)
         {
             FindTargetsByTags();
             attackTargets.RemoveAll(item => item == null);

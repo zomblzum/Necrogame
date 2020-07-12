@@ -28,7 +28,7 @@ public class EnemyPriorityZone : MonoBehaviour
 
             if(!priorityTargets.Contains(enemy.GetCurrentTarget()))
             {
-                enemy.SetPriorityTarget(other.gameObject);
+                enemy.SetAttackTarget(other.gameObject);
             }
         }
     }
