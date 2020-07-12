@@ -10,4 +10,12 @@ public class ExitGame : MonoBehaviour
     {
         Application.Quit(0);
     }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            new SceneChanger().ChangeScene("MenuScene");
+        }
+    }
 }
