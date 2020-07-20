@@ -33,19 +33,20 @@ public class AutoAggroEnemy : Enemy
     // Срабатывает, когда игрок или его прислужник умирают/уходят из зоны видимости
     protected virtual void OnTriggerExit(Collider other)
     {
+        attackTargets.RemoveAll(item => item == null);
         if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
         {
             attackTargets.Remove(other.gameObject);
-            attackTargets.RemoveAll(item => item == null);
 
-            if (attackTargets.Count == 0)
-            {
-                inAggro = false;
-            } 
-            else if (attackTarget == other.gameObject)
+            if (attackTarget == other.gameObject)
             {
                 GetClosestTarget();
             }
+        }
+
+        if (attackTargets.Count == 0)
+        {
+            inAggro = false;
         }
     }
 }

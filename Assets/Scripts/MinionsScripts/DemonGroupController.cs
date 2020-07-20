@@ -40,26 +40,6 @@ public class DemonGroupController : MinionGroupController
         }
     }
 
-    public override void AttackCommand()
-    {
-        RestartTriggerTime();
-    }
-
-    public override void DefendCommand()
-    {
-        RestartTriggerTime();
-    }
-
-    public override void DisgroupCommand()
-    {
-        RestartTriggerTime();
-    }
-
-    public override void MoveCommand(Vector3 position)
-    {
-        RestartTriggerTime();
-    }
-
     private void RestartTriggerTime()
     {
         curTime = 0;

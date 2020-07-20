@@ -26,8 +26,6 @@ public class BanditGroupController : MinionGroupController
         CalculateTime();
     }
 
-
-
     private void CalculateTime()
     {
         calculatedTime = takeMoneyTime / minionGroup.minions.Count;
@@ -54,25 +52,5 @@ public class BanditGroupController : MinionGroupController
         {
             curTime += Time.deltaTime;
         }
-    }
-
-    public override void AttackCommand()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public override void DefendCommand()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public override void DisgroupCommand()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public override void MoveCommand(Vector3 position)
-    {
-        //throw new System.NotImplementedException();
     }
 }

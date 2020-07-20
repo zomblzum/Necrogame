@@ -4,8 +4,17 @@ using UnityEngine;
 
 public abstract class MinionGroupController : MonoBehaviour
 {
+    [Header("Активное поведение прислужников в команде")]
+    public MinionCommand minionCommand;
+
     protected MinionBehaviour.MinionGroup minionGroup;
     protected bool groupUnderControl;
+
+    public virtual void SetGroupToController(MinionBehaviour.MinionGroup minionGroup)
+    {
+        this.minionGroup = minionGroup;
+        this.groupUnderControl = true;
+    }
 
     /// <summary>
     /// Тригер при добавлении миньона
@@ -16,12 +25,6 @@ public abstract class MinionGroupController : MonoBehaviour
     /// Тригер при удалении миньона
     /// </summary>
     public abstract void MinionRemoved();
-
-    public virtual void SetGroupToController(MinionBehaviour.MinionGroup minionGroup)
-    {
-        this.minionGroup = minionGroup;
-        this.groupUnderControl = true;
-    }
 
     /// <summary>
     /// Заставить всех миньонов подчинятся
@@ -56,20 +59,33 @@ public abstract class MinionGroupController : MonoBehaviour
     /// <summary>
     /// Команда атаки
     /// </summary>
-    public abstract void AttackCommand();
-
-    /// <summary>
-    /// Команда защищать игрока
-    /// </summary>
-    public abstract void DefendCommand();
+    public virtual void SetGroupAttackTarget(GameObject attackTarget)
+    {
+        foreach(Minion minion in minionGroup.minions)
+        {
+            minion.SetAttackTarget(attackTarget);
+        }
+    }
 
     /// <summary>
     /// Команда передвигаться к нужной позиции
     /// </summary>
-    public abstract void MoveCommand(Vector3 position);
+    public virtual void SetGroupMoveTarget(Vector3 position)
+    {
+        foreach (Minion minion in minionGroup.minions)
+        {
+            minion.SetMoveTarget(position);
+        }
+    }
 
     /// <summary>
-    /// Команда рассредоточиться
+    /// Поменять текущее поведение прислужников
     /// </summary>
-    public abstract void DisgroupCommand();
+    public void ChangeCurrentCommand(MinionCommand minionCommand)
+    {
+        foreach (Minion minion in minionGroup.minions)
+        {
+            minion.SetCommandBehaviour(minionCommand);
+        }
+    }
 }

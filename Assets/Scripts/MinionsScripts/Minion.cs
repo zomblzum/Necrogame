@@ -10,8 +10,9 @@ public abstract class Minion : Character
     public List<string> targetsTags;
 
     protected MinionBehaviour minionBehaviour;
+    protected MinionCommand minionCommand;
     protected Player player;
-
+    
     protected virtual void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -23,27 +24,35 @@ public abstract class Minion : Character
     {
         base.CharacterBehaviour();
 
-        if (attackTarget == null || !inAggro)
-        {
-            FindTargetsByTags();
-            attackTargets.RemoveAll(item => item == null);
-            if (attackTargets.Count > 0)
-            {
-                inAggro = true;
-                GetClosestTarget();
-            }
-            else
-            {
-                inAggro = false;
-            }
-        }
+        //if (attackTarget == null || !inAggro)
+        //{
+        //    FindTargetsByTags();
+        //    attackTargets.RemoveAll(item => item == null);
+        //    if (attackTargets.Count > 0)
+        //    {
+        //        inAggro = true;
+        //        GetClosestTarget();
+        //    }
+        //    else
+        //    {
+        //        inAggro = false;
+        //    }
+        //}
     }
 
     public override void Die()
     {
         minionBehaviour.RemoveMinion(this);
-
         base.Die();
+    }
+
+    /// <summary>
+    /// Задать активную команду для прислужника
+    /// </summary>
+    public virtual void SetCommandBehaviour(MinionCommand minionCommand)
+    {
+        
+        this.minionCommand = minionCommand;
     }
 
     /// <summary>

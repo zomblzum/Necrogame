@@ -7,7 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 public class DashSpell : Spell
 {
     [Header("Сила рывка")] public float dashSpeed = 1f;
-    [Header("Время рывка")] public float dashTime = 0.2f;
+    //[Header("Время рывка")] public float dashTime = 0.2f;
     [Header("Прицел для телепорта")] public Transform target;
 
     private Rigidbody playerBody;
@@ -30,11 +30,11 @@ public class DashSpell : Spell
     {
         if (active && dash)
         {
-            StartCoroutine(Dash());
+            Dash();
         }
     }
 
-    private IEnumerator Dash()
+    private void Dash()
     {
 
         //Уменьшаем массу игрока, иначе он будет в рывке сносить весь мир своим телом
@@ -48,8 +48,6 @@ public class DashSpell : Spell
         //Прыгаем
         playerBody.AddForce(targetDirection * dashSpeed, ForceMode.Impulse);
         StopCast();
-
-        yield return new WaitForSeconds(dashTime);
     }
 
     public override void StopCast()

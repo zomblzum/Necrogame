@@ -14,6 +14,6 @@ public class DemonSummoner : Summoner
 
     public override bool CanSummon(Player player)
     {
-        return player.curHealth >= healthCost;
+        return player.curHealth > healthCost;
     }
 }

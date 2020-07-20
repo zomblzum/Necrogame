@@ -25,6 +25,7 @@ public class MinionBehaviour : SpellBehaviour
         /// <param name="minion">прислужник</param>
         public void AddMinion(Minion minion)
         {
+            minion.SetCommandBehaviour(groupController.minionCommand);
             minions.Add(minion);
             groupController.MinionAdded();
         }
@@ -38,33 +39,25 @@ public class MinionBehaviour : SpellBehaviour
         /// <summary>
         /// Команда атаковать группе
         /// </summary>
-        public void AttackCommand()
+        public void ChangeAttackTarget(GameObject attackTarget)
         {
-            groupController.AttackCommand();
-        }
-
-        /// <summary>
-        /// Команда защиты группе
-        /// </summary>
-        public void DefendCommand()
-        {
-            groupController.DefendCommand();
-        }
-
-        /// <summary>
-        /// Команда рассредоточиться группе
-        /// </summary>
-        public void DisgroupCommand()
-        {
-            groupController.DisgroupCommand();
+            groupController.SetGroupAttackTarget(attackTarget);
         }
 
         /// <summary>
         /// Команда передвижения группе
         /// </summary>
-        public void MoveCommand(Vector3 position)
+        public void ChangeMovePosition(Vector3 position)
         {
-            groupController.MoveCommand(position);
+            groupController.SetGroupMoveTarget(position);
+        }
+
+        /// <summary>
+        /// Поменять текущее поведение прислужников
+        /// </summary>
+        public void ChangeCurrentCommand(MinionCommand minionCommand)
+        {
+            groupController.ChangeCurrentCommand(minionCommand);
         }
     }
 
@@ -81,6 +74,8 @@ public class MinionBehaviour : SpellBehaviour
     public TextMeshProUGUI currentGroupCount;
     [Header("Окно с командами для прислужников")]
     public GameObject minionCommandsPanel;
+    [Header("Список возможных комманд")]
+    public List<MinionCommand> minionCommands;
 
     private void Start()
     {
@@ -117,23 +112,26 @@ public class MinionBehaviour : SpellBehaviour
             if (Input.GetButtonDown(firstSpellButton))
             {
                 // команда атаковать
-                minionGroups[currentGroup].AttackCommand();
+                GameObject attackTarget = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentTarget();
+                minionGroups[currentGroup].ChangeAttackTarget(attackTarget);
+                minionGroups[currentGroup].ChangeCurrentCommand(new AttackCommand());
             }
             if (Input.GetButtonDown(secondSpellButton))
             {
                 // команда защиты
-                minionGroups[currentGroup].DefendCommand();
+                minionGroups[currentGroup].ChangeCurrentCommand(new DefendPlayerCommand());
             }
             if (Input.GetButtonDown(thirdSpellButton))
             {
                 // команда двигаться
-                Vector2 position = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.transform.position;
-                minionGroups[currentGroup].MoveCommand(position);
+                Vector3 position = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentPosition();
+                minionGroups[currentGroup].ChangeMovePosition(position);
+                minionGroups[currentGroup].ChangeCurrentCommand(new MoveToPointCommand());
             }
             if (Input.GetButtonDown(fourthSpellButton))
             {
                 // команда рассредоточиться
-                minionGroups[currentGroup].DisgroupCommand();
+                minionGroups[currentGroup].ChangeCurrentCommand(new DisgroupCommand());
             }
         }
         else
@@ -254,5 +252,19 @@ public class MinionBehaviour : SpellBehaviour
         // Если такой группы вообще нет, то не можем призвать
         // В текущих условиях такого никогда не случится
         return false;
+    }
+
+    private MinionCommand FindMinionCommandByName(Type type)
+    {
+        foreach(MinionCommand minionCommand in minionCommands)
+        {
+            if(minionCommand.GetType() == type)
+            {
+                return minionCommand;
+            }
+        }
+
+        //Если в будущем добавим дополнительные команды, но забудем их настроить корректно, то выстрелит это
+        return new DisgroupCommand();
     }
 }

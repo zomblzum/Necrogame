@@ -29,11 +29,11 @@ public class SniperMinion : Minion
         banditPayInteractable.SetActiveStatus(false);
     }
 
-    protected override void TargetInteractionsBehaviour()
+    protected override void AttackTargetInteractionsBehaviour()
     {
         if (underControl)
         {
-            base.TargetInteractionsBehaviour();
+            base.AttackTargetInteractionsBehaviour();
         }
     }
 }

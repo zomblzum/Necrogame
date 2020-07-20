@@ -76,10 +76,14 @@
     <Compile Include="Assets\Scripts\MinionsScripts\AllGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\BanditGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\BanditSummoner.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\AttackCommand.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\DefendPlayerCommand.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\DisgroupCommand.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\MinionCommand.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\MoveToPointCommand.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\DemonGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\DemonMinion.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\DemonSummoner.cs" />
-    <Compile Include="Assets\Scripts\MinionsScripts\List.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\Minion.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\MinionGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\RoachEgg.cs" />
@@ -117,6 +121,7 @@
     <Compile Include="Assets\Scripts\UtilScripts\CursorEnabler.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\PlayerTarget.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ThirdPersonOrbitCamBasic.cs" />
     <Compile Include="Assets\VFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />

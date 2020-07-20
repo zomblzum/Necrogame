@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -11,14 +12,63 @@ public class DemonMinion : Minion
     [Header("Время стана, который получает враг от демона")]
     public float stunTimeFromAttack = 1f;
 
-    public override void Hit()
-    {
-        base.Hit();
+    private float normalAngularSpeed;
+    private bool startAttack;
 
-        if (attackTarget != null && attackTarget.GetComponent<IStunable>() != null)
+    protected override void Awake()
+    {
+        base.Awake();
+        //Отключаем обход препятствий
+        agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
+        normalAngularSpeed = agent.angularSpeed;
+        startAttack = false;
+    }
+
+    protected override void CloseTargetInteraction()
+    {
+        agent.angularSpeed = 0f;
+        agent.SetDestination(transform.forward + new Vector3(10,10));
+        
+        if(!startAttack)
         {
-            attackTarget.GetComponent<IStunable>().StunForTime(stunTimeFromAttack);
+            startAttack = true;
+            StartCoroutine(ReturnToNormalMoving());
         }
+    }
+
+    private IEnumerator ReturnToNormalMoving()
+    {
+        yield return 3f;
+        agent.SetDestination(attackTarget.transform.position);
+        agent.angularSpeed = normalAngularSpeed;
+        startAttack = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
+
+        if(underControl)
+        {
+            // Если под контролем, то станим только врагов
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            if (enemy != null)
+            {
+                enemy.StunForTime(stunTimeFromAttack);
+            }
+        }
+        else
+        {
+            // Если нет, то всех кого можем
+            IStunable stunableCharacter = other.gameObject.GetComponent<IStunable>();
+
+            if (stunableCharacter != null)
+            {
+                stunableCharacter.StunForTime(stunTimeFromAttack);
+            }
+        }
+
     }
 
     public override void GoOutControl()

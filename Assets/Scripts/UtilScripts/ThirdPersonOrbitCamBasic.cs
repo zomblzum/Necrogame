@@ -15,7 +15,7 @@ public class ThirdPersonOrbitCamBasic : MonoBehaviour
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
 	public string YAxis = "Analog Y";                                  // The default vertical axis input name.
-	public GameObject playerTarget;
+	public PlayerTarget playerTarget;
 	public LayerMask ignoreMask;
 
 	private float angleH = 0;                                          // Float to store camera horizontal angle related to mouse movement.
@@ -96,12 +96,12 @@ public class ThirdPersonOrbitCamBasic : MonoBehaviour
 		{
 			if (hit.collider)
 			{
-				playerTarget.SetActive(true);
+				playerTarget.gameObject.SetActive(true);
 				playerTarget.transform.position = hit.point;
 			} 
 			else
             {
-				playerTarget.SetActive(false);
+				playerTarget.gameObject.SetActive(false);
 			}
 		}
 

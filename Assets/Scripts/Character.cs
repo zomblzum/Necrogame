@@ -37,6 +37,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     protected int curHealth;
     protected int hitBool;
     protected int stunBool;
+    protected Vector3 moveTarget;
 
 
     /// <summary>
@@ -62,6 +63,8 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         stunEffect.Stop();
         stunDuration = 0f;
         curHealth = health;
+
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     /// <summary>
@@ -69,7 +72,11 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     public void SetAttackTarget(GameObject attackable)
     {
-        attackTarget = attackable;
+        if(attackable != null)
+        {
+            attackTarget = attackable;
+            inAggro = true;
+        }
     }
 
     /// <summary>
@@ -78,6 +85,16 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     public GameObject GetCurrentTarget()
     {
         return attackTarget;
+    }
+
+    public void SetMoveTarget(Vector3 moveTarget)
+    {
+        this.moveTarget = moveTarget;
+        if(moveTarget != Vector3.zero)
+        {
+            agent.isStopped = false;
+            animator.SetFloat(speedFloat, 1f);
+        }
     }
 
     private void FixedUpdate()
@@ -116,15 +133,12 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     }
 
     /// <summary>
-    /// Атакуем игрока
+    /// Атакуем
     /// </summary>
     public virtual void Attack()
     {
-        if (stunDuration <= 0 && inAggro)
-        {
-            animator.SetBool(attackBool, true);
-            animator.SetFloat(attackSpeedFloat, attackSpeed);
-        }
+        animator.SetBool(attackBool, true);
+        animator.SetFloat(attackSpeedFloat, attackSpeed);
     }
 
     private IEnumerator StopHitAnimation()
@@ -138,13 +152,18 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void CharacterBehaviour()
     {
+        if(moveTarget != Vector3.zero)
+        {
+            MovingBehaviour();
+        }
+
         if (!inAggro || stunDuration > 0)
         {
             PassiveBehaviour();
         } 
-        else if (IsAlive() && attackTarget != null)
+        else if (attackTarget != null)
         {
-            TargetInteractionsBehaviour();
+            AttackTargetInteractionsBehaviour();
         }
     }
 
@@ -153,33 +172,52 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void PassiveBehaviour()
     {
-        agent.SetDestination(transform.position);
-        agent.velocity = Vector3.zero;
+        agent.SetDestination(Vector3.zero);
         agent.isStopped = true;
-
         animator.SetFloat(speedFloat, 0f);
+    }
+
+    /// <summary>
+    /// Поведение при беге
+    /// </summary>
+    protected virtual void MovingBehaviour()
+    {
+        //Вынужденный костыль с Y
+        moveTarget.y = transform.position.y;
+        agent.SetDestination(moveTarget);
+
+        if (Vector3.Distance(transform.position, moveTarget) <= agent.radius * 2)
+        {
+            PassiveBehaviour();
+        }
     }
 
     /// <summary>
     /// Передвижение к цели и ее атака
     /// </summary>
-    protected virtual void TargetInteractionsBehaviour()
+    protected virtual void AttackTargetInteractionsBehaviour()
     {
-        agent.SetDestination(attackTarget.transform.position);
-        if (Vector3.Distance(transform.position, attackTarget.transform.position) <= attackDistance)
+        if (Vector3.Distance(transform.position, attackTarget.transform.position) <= attackDistance && stunDuration <= 0 && inAggro)
         {
-            transform.LookAt(attackTarget.transform);
-            PassiveBehaviour();
-            if (!animator.GetBool(attackBool))
-            {
-                animator.SetFloat(speedFloat, 0f);
-                Attack();
-            }
+            CloseTargetInteraction();
         }
         else
         {
-            agent.isStopped = false;
-            animator.SetFloat(speedFloat, 1f);
+            SetMoveTarget(attackTarget.transform.position);
+        }
+    }
+
+    /// <summary>
+    /// Взаимодействие с целю, когда есть возможность ее атаковать
+    /// </summary>
+    protected virtual void CloseTargetInteraction()
+    {
+        transform.LookAt(attackTarget.transform);
+        PassiveBehaviour();
+        if (!animator.GetBool(attackBool))
+        {
+            animator.SetFloat(speedFloat, 0f);
+            Attack();
         }
     }
 
