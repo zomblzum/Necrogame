@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MinionCommand : MonoBehaviour
+[Serializable]
+public class MinionCommand
 {
     [Header("Название комманды")]
     public string commandName;
+
+    public MinionCommand(string commandName)
+    {
+        this.commandName = commandName;
+    }
 }

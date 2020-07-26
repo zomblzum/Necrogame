@@ -4,13 +4,16 @@ using System.Collections.Generic;
 /// <summary>
 /// Класс для управления поведениями
 /// </summary>
-public class BasicBehaviour : MonoBehaviour
+public class BasicBehaviour : MonoBehaviour, IStunable
 {
 	[Header("Камера")] public Transform playerCamera;                        
 	[Header("Сглаживание движения камеры")] public float turnSmoothing = 0.06f;                   
 	[Header("Скорость камеры при спринте")] public float sprintFOV = 100f;
+	[Header("VFX при стане")] public ParticleSystem stunEffect;
 	//[Header("Прицел")] public Texture2D crosshair;
 
+	private float stunDuration;
+	private int stunBool;
 
 	private string sprintButton = "Sprint";                
 	private float h;                                      
@@ -61,6 +64,8 @@ public class BasicBehaviour : MonoBehaviour
 		behaviours = new List<GenericBehaviour> ();
 		overridingBehaviours = new List<GenericBehaviour>();
 		anim = GetComponent<Animator> ();
+		stunBool = Animator.StringToHash("Stun");
+		stunEffect.Stop();
 		hFloat = Animator.StringToHash("H");
 		vFloat = Animator.StringToHash("V");
 		camScript = playerCamera.GetComponent<ThirdPersonOrbitCamBasic> ();
@@ -107,6 +112,15 @@ public class BasicBehaviour : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (stunDuration <= 0)
+		{
+			UnstunnedBehavour();
+		}
+		else
+		{
+			StunnedBehavour();
+			return;
+		}
 		// Запускаем действия только из активных состояний поведения
 		bool isAnyBehaviourActive = false;
 		if (behaviourLocked > 0 || overridingBehaviours.Count == 0)
@@ -139,6 +153,16 @@ public class BasicBehaviour : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		if (stunDuration <= 0)
+		{
+			UnstunnedBehavour();
+		}
+		else
+		{
+			StunnedBehavour();
+			return;
+		}
+
 		if (behaviourLocked > 0 || overridingBehaviours.Count == 0)
 		{
 			foreach (GenericBehaviour behaviour in behaviours)
@@ -157,6 +181,23 @@ public class BasicBehaviour : MonoBehaviour
 			}
 		}
 
+	}
+
+	private void StunnedBehavour()
+    {
+		anim.SetBool(stunBool, true);
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		if (!stunEffect.isPlaying)
+		{
+			stunEffect.Play();
+		}
+		stunDuration -= Time.deltaTime;
+	}
+
+	private void UnstunnedBehavour()
+    {
+		anim.SetBool(stunBool, false);
+		stunEffect.Stop();
 	}
 
 	public void SubscribeBehaviour(GenericBehaviour behaviour)
@@ -306,6 +347,16 @@ public class BasicBehaviour : MonoBehaviour
 		Ray ray = new Ray(this.transform.position + Vector3.up * 2 * colExtents.x, Vector3.down);
 		return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.2f);
 	}
+
+    public void StunForTime(float stunTime)
+    {
+		stunDuration = stunTime;
+    }
+
+	public bool Stunned()
+    {
+		return stunDuration > 0;
+    }
 }
 
 /// <summary>

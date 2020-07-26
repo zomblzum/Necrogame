@@ -22,22 +22,61 @@ public abstract class Minion : Character
 
     protected override void CharacterBehaviour()
     {
-        base.CharacterBehaviour();
+        if(minionCommand.commandName == "Attack")
+        {
+            AttackCommand();
+        } 
+        else if (minionCommand.commandName == "Move")
+        {
+            MoveCommand();
+        }
+        else if (minionCommand.commandName == "Defend")
+        {
+            DefendCommand();
+        }
+        else if (minionCommand.commandName == "Disgroup")
+        {
+            DisgroupCommand();
+        }
+    }
 
-        //if (attackTarget == null || !inAggro)
-        //{
-        //    FindTargetsByTags();
-        //    attackTargets.RemoveAll(item => item == null);
-        //    if (attackTargets.Count > 0)
-        //    {
-        //        inAggro = true;
-        //        GetClosestTarget();
-        //    }
-        //    else
-        //    {
-        //        inAggro = false;
-        //    }
-        //}
+    /// <summary>
+    /// Реализация поведения при команде АТАКИ
+    /// </summary>
+    protected virtual void AttackCommand()
+    {
+        if (attackTarget != null)
+        {
+            AttackTargetInteractionsBehaviour();
+        }
+    }
+
+    /// <summary>
+    /// Реализация поведения при команде ПЕРЕМЕЩЕНИЯ К ТОЧКЕ
+    /// </summary>
+    protected virtual void MoveCommand()
+    {
+        if (moveTarget != Vector3.zero)
+        {
+            MovingBehaviour();
+        }
+    }
+
+    /// <summary>
+    /// Реализация поведения при команде ЗАЩИТЫ ИГРОКА
+    /// </summary>
+    protected virtual void DefendCommand()
+    {
+        SetMoveTarget(player.transform.position);
+        MoveCommand();
+    }
+
+    /// <summary>
+    /// Реализация поведения при команде РАЗГРУПИРОВКИ
+    /// </summary>
+    protected virtual void DisgroupCommand()
+    {
+
     }
 
     public override void Die()
@@ -46,12 +85,17 @@ public abstract class Minion : Character
         base.Die();
     }
 
+    protected override void RunToEnemy()
+    {
+        base.RunToEnemy();
+        MovingBehaviour();
+    }
+
     /// <summary>
     /// Задать активную команду для прислужника
     /// </summary>
     public virtual void SetCommandBehaviour(MinionCommand minionCommand)
     {
-        
         this.minionCommand = minionCommand;
     }
 

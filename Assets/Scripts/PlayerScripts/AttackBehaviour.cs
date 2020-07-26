@@ -24,8 +24,9 @@ public class AttackBehaviour : GenericBehaviour
 
     void Update()
     {
+        
         // Отслеживание нажатия клавиши атаки
-        if (Input.GetButtonDown(attackButton) && !behaviourManager.GetAnim.GetBool(attackBool))
+        if (Input.GetButtonDown(attackButton) && !behaviourManager.GetAnim.GetBool(attackBool) && !behaviourManager.Stunned())
         {
             behaviourManager.GetAnim.SetFloat(attackSpeedFloat, attackSpeed + weapon.speed);
             behaviourManager.GetAnim.SetBool(attackBool, true);

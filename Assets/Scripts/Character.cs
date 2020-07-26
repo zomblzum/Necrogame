@@ -25,9 +25,10 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     public float attackDistance = 1f;
     [Header("NavMeshAgent")]
     public NavMeshAgent agent;
+    [Header("Аниматор")]
+    public Animator animator;
 
     protected CharacterUI characterUI;
-    protected Animator animator;
     protected GameObject attackTarget;
     protected List<GameObject> attackTargets;
     protected float stunDuration;
@@ -90,11 +91,6 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     public void SetMoveTarget(Vector3 moveTarget)
     {
         this.moveTarget = moveTarget;
-        if(moveTarget != Vector3.zero)
-        {
-            agent.isStopped = false;
-            animator.SetFloat(speedFloat, 1f);
-        }
     }
 
     private void FixedUpdate()
@@ -108,6 +104,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         else
         {
             animator.SetBool(stunBool, true);
+            PassiveBehaviour();
             if (!stunEffect.isPlaying)
             {
                 stunEffect.Play();
@@ -157,7 +154,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
             MovingBehaviour();
         }
 
-        if (!inAggro || stunDuration > 0)
+        if (!inAggro)
         {
             PassiveBehaviour();
         } 
@@ -189,6 +186,11 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         if (Vector3.Distance(transform.position, moveTarget) <= agent.radius * 2)
         {
             PassiveBehaviour();
+        } 
+        else if (animator.GetFloat(speedFloat) == 0)
+        {
+            agent.isStopped = false;
+            animator.SetFloat(speedFloat, 1f);
         }
     }
 
@@ -203,7 +205,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         }
         else
         {
-            SetMoveTarget(attackTarget.transform.position);
+            RunToEnemy();
         }
     }
 
@@ -219,6 +221,14 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
             animator.SetFloat(speedFloat, 0f);
             Attack();
         }
+    }
+
+    /// <summary>
+    /// Преследовать цель
+    /// </summary>
+    protected virtual void RunToEnemy()
+    {
+        SetMoveTarget(attackTarget.transform.position);
     }
 
     /// <summary>

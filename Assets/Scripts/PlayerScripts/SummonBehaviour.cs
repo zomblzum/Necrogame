@@ -40,6 +40,13 @@ public class SummonBehaviour : SpellBehaviour
                 SetSummonWindowStatus(false);
                 StopAllSummoners();
             }
+
+            // Если игрок под станом, то команды не обрабатываем
+            if (basicBehaviour.Stunned())
+            {
+                return;
+            }
+
             // Начать призыв, зажав кнопку
             if (Input.GetButtonDown(firstSpellButton))
             {

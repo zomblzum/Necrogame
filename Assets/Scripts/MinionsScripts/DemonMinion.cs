@@ -19,7 +19,7 @@ public class DemonMinion : Minion
     {
         base.Awake();
         //Отключаем обход препятствий
-        agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
+        //agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
         normalAngularSpeed = agent.angularSpeed;
         startAttack = false;
     }
@@ -38,15 +38,15 @@ public class DemonMinion : Minion
 
     private IEnumerator ReturnToNormalMoving()
     {
-        yield return 3f;
+        yield return 4f;
         agent.SetDestination(attackTarget.transform.position);
         agent.angularSpeed = normalAngularSpeed;
         startAttack = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
+        //agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
 
         if(underControl)
         {

@@ -26,6 +26,9 @@ public class MinionBehaviour : SpellBehaviour
         public void AddMinion(Minion minion)
         {
             minion.SetCommandBehaviour(groupController.minionCommand);
+            minion.SetAttackTarget(groupController.attackTarget);
+            minion.SetMoveTarget(groupController.movePosition);
+            Debug.Log(groupController.minionCommand.commandName + " активная команда у призваного моба");
             minions.Add(minion);
             groupController.MinionAdded();
         }
@@ -84,6 +87,7 @@ public class MinionBehaviour : SpellBehaviour
         foreach(MinionGroup minionGroup in minionGroups)
         {
             minionGroup.groupController.SetGroupToController(minionGroup);
+            minionGroup.ChangeCurrentCommand(new MinionCommand("Disgroup"));
         }
     }
 
@@ -109,29 +113,34 @@ public class MinionBehaviour : SpellBehaviour
             {
                 SetCommandWindowStatus(false);
             }
+            // Если игрок под станом, то команды не обрабатываем
+            if(basicBehaviour.Stunned())
+            {
+                return;
+            }
             if (Input.GetButtonDown(firstSpellButton))
             {
                 // команда атаковать
                 GameObject attackTarget = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentTarget();
-                minionGroups[currentGroup].ChangeAttackTarget(attackTarget);
-                minionGroups[currentGroup].ChangeCurrentCommand(new AttackCommand());
+                ChangeGroupCommand(new MinionCommand("Attack"));
+                ChangeGroupAttackTarget(attackTarget);
             }
             if (Input.GetButtonDown(secondSpellButton))
             {
                 // команда защиты
-                minionGroups[currentGroup].ChangeCurrentCommand(new DefendPlayerCommand());
+                ChangeGroupCommand(new MinionCommand("Defend"));
             }
             if (Input.GetButtonDown(thirdSpellButton))
             {
                 // команда двигаться
                 Vector3 position = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentPosition();
-                minionGroups[currentGroup].ChangeMovePosition(position);
-                minionGroups[currentGroup].ChangeCurrentCommand(new MoveToPointCommand());
+                ChangeGroupCommand(new MinionCommand("Move"));
+                ChangeGroupMoveTarget(position);
             }
             if (Input.GetButtonDown(fourthSpellButton))
             {
                 // команда рассредоточиться
-                minionGroups[currentGroup].ChangeCurrentCommand(new DisgroupCommand());
+                ChangeGroupCommand(new MinionCommand("Disgroup"));
             }
         }
         else
@@ -164,6 +173,63 @@ public class MinionBehaviour : SpellBehaviour
         if(minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
         {
             UpdateMinionsCounter();
+        }
+    }
+
+    /// <summary>
+    /// Поменять текущую команду в зависимости от выбранной группы
+    /// </summary>
+    /// <param name="minionCommand">Новая команда</param>
+    public void ChangeGroupCommand(MinionCommand minionCommand)
+    {
+        if(minionGroups[currentGroup].minionType == "All")
+        {
+            foreach(MinionGroup minionGroup in minionGroups)
+            {
+                minionGroup.ChangeCurrentCommand(minionCommand);
+            }
+        }
+        else
+        {
+            minionGroups[currentGroup].ChangeCurrentCommand(minionCommand);
+        }
+    }
+
+    /// <summary>
+    /// Поменять цель движения в зависимости от выбранной группы
+    /// </summary>
+    /// <param name="movePosition">Точка для перемещения</param>
+    public void ChangeGroupMoveTarget(Vector3 movePosition)
+    {
+        if (minionGroups[currentGroup].minionType == "All")
+        {
+            foreach (MinionGroup minionGroup in minionGroups)
+            {
+                minionGroup.ChangeMovePosition(movePosition);
+            }
+        }
+        else
+        {
+            minionGroups[currentGroup].ChangeMovePosition(movePosition);
+        }
+    }
+
+    /// <summary>
+    /// Поменять цель атаки в зависимости от выбранной группы
+    /// </summary>
+    /// <param name="attackTarget">Новая цель для атаки</param>
+    public void ChangeGroupAttackTarget(GameObject attackTarget)
+    {
+        if (minionGroups[currentGroup].minionType == "All")
+        {
+            foreach (MinionGroup minionGroup in minionGroups)
+            {
+                minionGroup.ChangeAttackTarget(attackTarget);
+            }
+        }
+        else
+        {
+            minionGroups[currentGroup].ChangeAttackTarget(attackTarget);
         }
     }
 
@@ -252,19 +318,5 @@ public class MinionBehaviour : SpellBehaviour
         // Если такой группы вообще нет, то не можем призвать
         // В текущих условиях такого никогда не случится
         return false;
-    }
-
-    private MinionCommand FindMinionCommandByName(Type type)
-    {
-        foreach(MinionCommand minionCommand in minionCommands)
-        {
-            if(minionCommand.GetType() == type)
-            {
-                return minionCommand;
-            }
-        }
-
-        //Если в будущем добавим дополнительные команды, но забудем их настроить корректно, то выстрелит это
-        return new DisgroupCommand();
     }
 }

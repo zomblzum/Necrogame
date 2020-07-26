@@ -6,6 +6,10 @@ public abstract class MinionGroupController : MonoBehaviour
 {
     [Header("Активное поведение прислужников в команде")]
     public MinionCommand minionCommand;
+    [Header("Цель движения для группы")]
+    public Vector3 movePosition;
+    [Header("Цель атаки для группы")]
+    public GameObject attackTarget;
 
     protected MinionBehaviour.MinionGroup minionGroup;
     protected bool groupUnderControl;
@@ -61,6 +65,7 @@ public abstract class MinionGroupController : MonoBehaviour
     /// </summary>
     public virtual void SetGroupAttackTarget(GameObject attackTarget)
     {
+        this.attackTarget = attackTarget;
         foreach(Minion minion in minionGroup.minions)
         {
             minion.SetAttackTarget(attackTarget);
@@ -70,11 +75,12 @@ public abstract class MinionGroupController : MonoBehaviour
     /// <summary>
     /// Команда передвигаться к нужной позиции
     /// </summary>
-    public virtual void SetGroupMoveTarget(Vector3 position)
+    public virtual void SetGroupMoveTarget(Vector3 movePosition)
     {
+        this.movePosition = movePosition;
         foreach (Minion minion in minionGroup.minions)
         {
-            minion.SetMoveTarget(position);
+            minion.SetMoveTarget(movePosition);
         }
     }
 
@@ -83,6 +89,7 @@ public abstract class MinionGroupController : MonoBehaviour
     /// </summary>
     public void ChangeCurrentCommand(MinionCommand minionCommand)
     {
+        this.minionCommand = minionCommand;
         foreach (Minion minion in minionGroup.minions)
         {
             minion.SetCommandBehaviour(minionCommand);

@@ -26,6 +26,7 @@ ScriptsOnlyBuild:
     - MoveBehaviour
     - Player
     - PlayerInteract
+    - PlayerTarget
     - PlayerUI
     - RoachEgg
     - RoachEggsDamageBuff
@@ -161,61 +162,63 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12188}
     - Class: 114
-      Script: {instanceID: 12216}
+      Script: {instanceID: 12218}
     - Class: 114
-      Script: {instanceID: 12248}
+      Script: {instanceID: 12250}
     - Class: 114
-      Script: {instanceID: 12302}
+      Script: {instanceID: 12304}
     - Class: 114
-      Script: {instanceID: 12328}
+      Script: {instanceID: 12330}
     - Class: 114
-      Script: {instanceID: 12338}
+      Script: {instanceID: 12340}
     - Class: 114
-      Script: {instanceID: 12350}
+      Script: {instanceID: 12352}
     - Class: 114
-      Script: {instanceID: 12384}
+      Script: {instanceID: 12386}
     - Class: 114
-      Script: {instanceID: 12434}
+      Script: {instanceID: 12436}
     - Class: 114
-      Script: {instanceID: 12466}
+      Script: {instanceID: 12468}
     - Class: 114
-      Script: {instanceID: 12514}
+      Script: {instanceID: 12516}
     - Class: 114
-      Script: {instanceID: 12536}
+      Script: {instanceID: 12538}
     - Class: 114
-      Script: {instanceID: 12566}
+      Script: {instanceID: 12568}
     - Class: 114
-      Script: {instanceID: 12590}
+      Script: {instanceID: 12592}
     - Class: 114
-      Script: {instanceID: 12638}
+      Script: {instanceID: 12640}
     - Class: 114
-      Script: {instanceID: 12716}
+      Script: {instanceID: 12718}
     - Class: 114
-      Script: {instanceID: 12796}
-    - Class: 114
-      Script: {instanceID: 12858}
+      Script: {instanceID: 12798}
     - Class: 114
       Script: {instanceID: 12862}
     - Class: 114
-      Script: {instanceID: 12868}
+      Script: {instanceID: 12866}
     - Class: 114
-      Script: {instanceID: 12886}
+      Script: {instanceID: 12872}
     - Class: 114
-      Script: {instanceID: 12954}
+      Script: {instanceID: 12890}
     - Class: 114
-      Script: {instanceID: 12962}
+      Script: {instanceID: 12958}
     - Class: 114
-      Script: {instanceID: 13080}
+      Script: {instanceID: 12966}
     - Class: 114
-      Script: {instanceID: 13136}
+      Script: {instanceID: 13084}
     - Class: 114
-      Script: {instanceID: 13196}
+      Script: {instanceID: 13140}
     - Class: 114
-      Script: {instanceID: 13216}
+      Script: {instanceID: 13168}
     - Class: 114
-      Script: {instanceID: 13232}
+      Script: {instanceID: 13202}
     - Class: 114
-      Script: {instanceID: 13262}
+      Script: {instanceID: 13222}
+    - Class: 114
+      Script: {instanceID: 13236}
+    - Class: 114
+      Script: {instanceID: 13266}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -241,6 +244,8 @@ ScriptsOnlyBuild:
     - Class: 198
       Script: {instanceID: 0}
     - Class: 199
+      Script: {instanceID: 0}
+    - Class: 208
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -296,21 +301,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11962}
     - Class: 114
-      Script: {instanceID: 12346}
+      Script: {instanceID: 12208}
     - Class: 114
-      Script: {instanceID: 12444}
+      Script: {instanceID: 12348}
     - Class: 114
-      Script: {instanceID: 12590}
+      Script: {instanceID: 12446}
     - Class: 114
-      Script: {instanceID: 12604}
+      Script: {instanceID: 12592}
     - Class: 114
-      Script: {instanceID: 12858}
+      Script: {instanceID: 12606}
     - Class: 114
-      Script: {instanceID: 13016}
+      Script: {instanceID: 12862}
     - Class: 114
-      Script: {instanceID: 13232}
+      Script: {instanceID: 13020}
     - Class: 114
-      Script: {instanceID: 25010}
+      Script: {instanceID: 13236}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -338,7 +343,7 @@ ScriptsOnlyBuild:
     className: CFX_LightFlicker
   - hash:
       serializedVersion: 2
-      Hash: df88ecd8fb6ab24b75ca6919ebc9df0a
+      Hash: beb88b68decdccb301f9ce2f46d52b4e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DashSpell
@@ -398,7 +403,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: e294da82bacfdacd6ccc95bf205afe1b
+      Hash: bb5125da0c9c91b1ec92d22d5b05fcdd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZombieMinion
@@ -476,7 +481,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 67ed07441f5226b248ddb8b8846e969d
+      Hash: 9e0b7f34c734c67d3a5b420a4491bd17
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MinionBehaviour
@@ -578,7 +583,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: acbd182dac981d4a1396e03603d71d1f
+      Hash: 3b1b2b9df24f4cafd41d6f368f6408f5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZombieGroupZontroller
@@ -590,13 +595,13 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 1a09c756038784f65e371e495b1d1ec2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoachGroupController
   - hash:
       serializedVersion: 2
-      Hash: 0568e375c21ffcdf299d9306c65db668
+      Hash: 95951345540f7059ac989d0762233f0e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DemonMinion
@@ -710,6 +715,12 @@ ScriptsOnlyBuild:
     className: SpellUI
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CursorEnabler
+  - hash:
+      serializedVersion: 2
       Hash: 5d27c6e85ec89cfab8577e9e26695e88
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -776,7 +787,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: b762804a8c39845757c0d582ab0b6ac3
+      Hash: 73d81df98bb29bb4f53f0355d401719c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ThirdPersonOrbitCamBasic
@@ -818,7 +829,7 @@ ScriptsOnlyBuild:
     className: rotation
   - hash:
       serializedVersion: 2
-      Hash: e294da82bacfdacd6ccc95bf205afe1b
+      Hash: bb5125da0c9c91b1ec92d22d5b05fcdd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SniperMinion
@@ -878,7 +889,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 6aef293f66c04ae8f1189c480ef90e09
+      Hash: ed0d5c0e9f11d88eda0d67550dccf054
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DemonGroupController
@@ -896,13 +907,13 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: e3f14c5e4f6ddbb6517ce90a701d8975
+      Hash: 9842057b27c3c16bea0751ba6d5d404a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BasicBehaviour
   - hash:
       serializedVersion: 2
-      Hash: 40fe33465d5379c2ffbc6a53434e64ac
+      Hash: db8d006a4a9c7c30fc7574164137a38c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
@@ -932,7 +943,7 @@ ScriptsOnlyBuild:
     className: AttackBehaviour
   - hash:
       serializedVersion: 2
-      Hash: c5948a1e20062fac3efb37e8b17ed74a
+      Hash: 384f486f8afa4da6dcecad9f10a36d62
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AggroByAttackEnemy
@@ -950,7 +961,7 @@ ScriptsOnlyBuild:
     className: ShootSpell
   - hash:
       serializedVersion: 2
-      Hash: ba8a9323a8cbbb2d38717aeccf88f896
+      Hash: f6f25e390835acd5abae1a2ea0c47b24
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoachMinion
@@ -998,7 +1009,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 45edcd09e11f8c7e7c207e443405c40a
+      Hash: f04de835d85f20ad5f1491b20b6ba053
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AutoAggroEnemy
@@ -1014,6 +1025,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerTarget
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -1034,7 +1051,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: 0a905fdb56f89891780a8b259e982dde
+      Hash: 560b15b1036aebdb89a47d23bd2d457f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AllGroupController
@@ -1052,7 +1069,7 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: 8d88c77443f632f2e7f82c845d01c8b6
+      Hash: f69fea989171b27cf2a69687a30bc1c5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BanditGroupController
@@ -1098,12 +1115,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CursorEnabler
   platform: 5
   scenePathNames:
   - Assets/Scenes/MenuScene.unity

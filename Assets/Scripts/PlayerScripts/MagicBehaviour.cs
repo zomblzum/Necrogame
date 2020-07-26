@@ -26,7 +26,7 @@ public class MagicBehaviour : SpellBehaviour
     void Update()
     {
         //Кастуем в любом режиме
-        if (Input.GetButtonDown(castButton) && spells[currentSpell].coolDown <= 0f && HaveMana(spells[currentSpell].price))
+        if (!basicBehaviour.Stunned() && Input.GetButtonDown(castButton) && spells[currentSpell].coolDown <= 0f && HaveMana(spells[currentSpell].price))
         {
             player.SpendMana(spells[currentSpell].price);
             spells[currentSpell].Cast();
