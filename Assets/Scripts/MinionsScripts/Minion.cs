@@ -48,6 +48,11 @@ public abstract class Minion : Character
         if (attackTarget != null)
         {
             AttackTargetInteractionsBehaviour();
+        } 
+        else
+        {
+            FindTargetsByTags();
+            GetClosestTarget();
         }
     }
 

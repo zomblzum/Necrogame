@@ -15,9 +15,25 @@ public class AutoAggroEnemy : Enemy
         aggroAreaCollider.radius = aggroDistance;
     }
 
+    private void Update()
+    {
+        //attackTargets.RemoveAll(item => item == null);
+        //if (attackTarget == null && attackTargets.Count > 0)
+        //{
+            
+        //    attackTargets.RemoveAll(item => item == null);
+        //    GetClosestTarget();
+        //}
+    }
+
     // Срабатывает при входе игрока и миньонов в область видимости врага
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if(attackTargets.Contains(other.gameObject))
+        {
+            return;
+        }
+
         if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
         {
             attackTargets.Add(other.gameObject);
@@ -33,12 +49,14 @@ public class AutoAggroEnemy : Enemy
     // Срабатывает, когда игрок или его прислужник умирают/уходят из зоны видимости
     protected virtual void OnTriggerExit(Collider other)
     {
-        attackTargets.RemoveAll(item => item == null);
+        //attackTargets.RemoveAll(item => item == null);
+
         if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
         {
+            attackTargets.RemoveAll(item => item == null);
             attackTargets.Remove(other.gameObject);
 
-            if (attackTarget == other.gameObject)
+            if (attackTarget == other.gameObject || attackTarget.GetComponent<IAttackable>() == null)
             {
                 GetClosestTarget();
             }

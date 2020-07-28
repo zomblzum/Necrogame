@@ -25,10 +25,7 @@ public class DemonMinion : Minion
     }
 
     protected override void CloseTargetInteraction()
-    {
-        agent.angularSpeed = 0f;
-        agent.SetDestination(transform.forward + new Vector3(10,10));
-        
+    {      
         if(!startAttack)
         {
             startAttack = true;
@@ -36,15 +33,54 @@ public class DemonMinion : Minion
         }
     }
 
-    private IEnumerator ReturnToNormalMoving()
+    protected override void RunToEnemy()
     {
-        yield return 4f;
+        if(!startAttack)
+        {
+            base.RunToEnemy();
+        }
+    }
+
+    IEnumerator ReturnToNormalMoving()
+    {
+        //это работает, хз почему, лучше не трогать никогда
+        agent.angularSpeed = 0f;
+        agent.SetDestination(transform.forward * 5);
+
+        yield return new WaitForSeconds(1f);
+
         agent.SetDestination(attackTarget.transform.position);
         agent.angularSpeed = normalAngularSpeed;
         startAttack = false;
     }
 
-    private void OnTriggerStay(Collider other)
+
+    protected override void CharacterBehaviour()
+    {
+        if(underControl)
+        {
+            base.CharacterBehaviour();
+        }
+        else
+        {
+            if(!inAggro || attackTarget == null)
+            {
+                FindTargetsByTags();
+                GetClosestTarget();
+                inAggro = true;
+            }
+            AttackCommand();
+        }
+    }
+
+    public override void FindTargetsByTags()
+    {
+        base.FindTargetsByTags();
+        // Демоны не атакуют других демонов
+        attackTargets.RemoveAll(item => item.GetComponent<DemonMinion>() != null);
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         //agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
 
@@ -63,7 +99,7 @@ public class DemonMinion : Minion
             // Если нет, то всех кого можем
             IStunable stunableCharacter = other.gameObject.GetComponent<IStunable>();
 
-            if (stunableCharacter != null)
+            if (stunableCharacter != null && other.gameObject.GetComponent<DemonMinion>() == null)
             {
                 stunableCharacter.StunForTime(stunTimeFromAttack);
             }

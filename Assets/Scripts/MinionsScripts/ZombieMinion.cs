@@ -30,9 +30,28 @@ public class ZombieMinion : Minion
         GetClosestTarget();
     }
 
+    protected override void CharacterBehaviour()
+    {
+        if (underControl)
+        {
+            base.CharacterBehaviour();
+        }
+        else
+        {
+            if (!inAggro || attackTarget == null)
+            {
+                FindTargetsByTags();
+                GetClosestTarget();
+                inAggro = true;
+            }
+            AttackCommand();
+        }
+
+    }
     public override void FindTargetsByTags()
     {
         base.FindTargetsByTags();
+        // Зомби не атакуют других зомби
         attackTargets.RemoveAll(item => item.GetComponent<ZombieMinion>() != null);
     }
 

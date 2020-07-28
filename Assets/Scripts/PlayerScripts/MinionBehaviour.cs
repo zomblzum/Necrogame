@@ -28,7 +28,6 @@ public class MinionBehaviour : SpellBehaviour
             minion.SetCommandBehaviour(groupController.minionCommand);
             minion.SetAttackTarget(groupController.attackTarget);
             minion.SetMoveTarget(groupController.movePosition);
-            Debug.Log(groupController.minionCommand.commandName + " активная команда у призваного моба");
             minions.Add(minion);
             groupController.MinionAdded();
         }
@@ -122,8 +121,11 @@ public class MinionBehaviour : SpellBehaviour
             {
                 // команда атаковать
                 GameObject attackTarget = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentTarget();
-                ChangeGroupCommand(new MinionCommand("Attack"));
-                ChangeGroupAttackTarget(attackTarget);
+                if(attackTarget != null && attackTarget.GetComponent<Minion>() == null)
+                {
+                    ChangeGroupCommand(new MinionCommand("Attack"));
+                    ChangeGroupAttackTarget(attackTarget);
+                }
             }
             if (Input.GetButtonDown(secondSpellButton))
             {

@@ -87,7 +87,7 @@ public abstract class MinionGroupController : MonoBehaviour
     /// <summary>
     /// Поменять текущее поведение прислужников
     /// </summary>
-    public void ChangeCurrentCommand(MinionCommand minionCommand)
+    public virtual void ChangeCurrentCommand(MinionCommand minionCommand)
     {
         this.minionCommand = minionCommand;
         foreach (Minion minion in minionGroup.minions)

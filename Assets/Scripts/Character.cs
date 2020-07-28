@@ -181,10 +181,17 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     {
         //Вынужденный костыль с Y
         moveTarget.y = transform.position.y;
+
         agent.SetDestination(moveTarget);
 
-        if (Vector3.Distance(transform.position, moveTarget) <= agent.radius * 2)
+        //костыль для нормального поворота нпс
+        transform.LookAt(agent.steeringTarget);
+
+
+        if (Vector3.Distance(transform.position, moveTarget) <= agent.radius * 2 && attackTarget == null)
         {
+            // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
+            transform.LookAt(moveTarget);
             PassiveBehaviour();
         } 
         else if (animator.GetFloat(speedFloat) == 0)
@@ -228,6 +235,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void RunToEnemy()
     {
+        Debug.Log(gameObject.name + " 3");
         SetMoveTarget(attackTarget.transform.position);
     }
 

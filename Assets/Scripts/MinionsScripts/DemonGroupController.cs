@@ -31,7 +31,6 @@ public class DemonGroupController : MinionGroupController
     {
         if (curTime >= calculatedServeTime && groupUnderControl)
         {
-            Debug.Log("Демоны вышел из под контроля");
             SetGroupOutControl();
         }
         else if (minionGroup.minions.Count > 0)
@@ -40,10 +39,15 @@ public class DemonGroupController : MinionGroupController
         }
     }
 
+    public override void ChangeCurrentCommand(MinionCommand minionCommand)
+    {
+        base.ChangeCurrentCommand(minionCommand);
+        RestartTriggerTime();
+    }
+
     private void RestartTriggerTime()
     {
         curTime = 0;
         SetGroupUnderControl();
-        Debug.Log("Демоны снова под контролем");
     }
 }
