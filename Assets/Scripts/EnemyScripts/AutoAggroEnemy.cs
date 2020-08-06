@@ -29,12 +29,12 @@ public class AutoAggroEnemy : Enemy
     // Срабатывает при входе игрока и миньонов в область видимости врага
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if(attackTargets.Contains(other.gameObject))
-        {
-            return;
-        }
+        //if(attackTargets.Contains(other.gameObject))
+        //{
+        //    return;
+        //}
 
-        if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
+        if (other.gameObject.GetComponent<Minion>() || other.gameObject.GetComponent<Player>())
         {
             attackTargets.Add(other.gameObject);
             inAggro = true;
@@ -49,14 +49,12 @@ public class AutoAggroEnemy : Enemy
     // Срабатывает, когда игрок или его прислужник умирают/уходят из зоны видимости
     protected virtual void OnTriggerExit(Collider other)
     {
-        //attackTargets.RemoveAll(item => item == null);
-
-        if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
+        if (other.gameObject.GetComponent<Minion>() || other.gameObject.GetComponent<Player>() || attackTarget == null)
         {
             attackTargets.RemoveAll(item => item == null);
             attackTargets.Remove(other.gameObject);
 
-            if (attackTarget == other.gameObject || attackTarget.GetComponent<IAttackable>() == null)
+            if (attackTarget == other.gameObject || attackTarget == null)
             {
                 GetClosestTarget();
             }

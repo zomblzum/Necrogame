@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -11,8 +9,11 @@ public class DemonMinion : Minion
 {
     [Header("Время стана, который получает враг от демона")]
     public float stunTimeFromAttack = 1f;
+    [Header("Время переключения на случайную цель при выъоде из контроля")]
+    public float changeRandomTargetTime = 30f;
 
     private float normalAngularSpeed;
+    private float curTime;
     private bool startAttack;
 
     protected override void Awake()
@@ -54,6 +55,20 @@ public class DemonMinion : Minion
         startAttack = false;
     }
 
+    private void Update()
+    {
+        if(!underControl)
+        {
+            if(curTime >= changeRandomTargetTime)
+            {
+                GetRandomTarget();
+            }
+            else
+            {
+                curTime += Time.deltaTime;
+            }
+        }
+    }
 
     protected override void CharacterBehaviour()
     {
@@ -112,8 +127,9 @@ public class DemonMinion : Minion
         underControl = false;
         targetsTags.Add("Minion");
         targetsTags.Add("Player");
+        curTime = 0;
         FindTargetsByTags();
-        GetClosestTarget();
+        GetRandomTarget();
     }
 
     public override void GoUnderControl()
@@ -123,5 +139,10 @@ public class DemonMinion : Minion
         targetsTags.Remove("Player");
         FindTargetsByTags();
         GetClosestTarget();
+    }
+
+    private void GetRandomTarget()
+    {
+        attackTarget = attackTargets[Random.Range(0, attackTargets.Count)];
     }
 }

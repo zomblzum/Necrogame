@@ -22,7 +22,8 @@ public class EnemyPriorityZone : MonoBehaviour
     // Срабатывает при входе игрока и миньонов в область видимости врага
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
+        return;
+        if (other.gameObject.GetComponent<Minion>() || other.gameObject.GetComponent<Player>())
         {
             priorityTargets.Add(other.gameObject);
 
@@ -36,12 +37,12 @@ public class EnemyPriorityZone : MonoBehaviour
     // Срабатывает, когда игрок или его прислужник умирают/уходят из зоны видимости
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Minion>() != null || other.gameObject.GetComponent<Player>() != null)
+        if (other.gameObject.GetComponent<Minion>() || other.gameObject.GetComponent<Player>() || enemy.GetCurrentTarget() == null)
         {
             priorityTargets.Remove(other.gameObject);
             priorityTargets.RemoveAll(item => item == null);
 
-            if (enemy.GetCurrentTarget() == other.gameObject)
+            if (enemy.GetCurrentTarget() == other.gameObject || enemy.GetCurrentTarget() == null)
             {
                 enemy.GetClosestTarget();
             }

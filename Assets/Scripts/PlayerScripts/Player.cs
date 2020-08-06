@@ -28,6 +28,8 @@ public class Player : MonoBehaviour, IAttackable, IDieable
     public bool spellMode;
     [Header("Список дебафов на увеличение получаемого урона")]
     public List<DamageBuff> damageBuffs;
+    [Header("Фильтр по слоям")] 
+    public LayerMask ignoreMask;
 
     private float curHealthTime = 0f;
     private float curManaTime = 0f;
@@ -90,6 +92,16 @@ public class Player : MonoBehaviour, IAttackable, IDieable
 
     public void GetHit(GameObject attackFrom, int damage)
     {
+        RaycastHit hit;
+        if(Physics.Linecast(transform.position + new Vector3(0f,1f,0f), attackFrom.transform.position + new Vector3(0f, 1f, 0f), out hit, ~ignoreMask))
+        {
+            if (hit.collider && hit.collider.GetComponent<Minion>())
+            {
+                hit.collider.GetComponent<Minion>().GetHit(attackFrom, damage);
+                return;
+            }
+        }
+
         if (curHealth > 0)
         {
             //Проходимся по всем модификаторам урона

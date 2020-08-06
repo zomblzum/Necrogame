@@ -16,18 +16,22 @@ public class BanditGroupController : MinionGroupController
 
     public override void MinionAdded()
     {
-        curTime = 0f;
         CalculateTime();
+
+        if(!groupUnderControl)
+        {
+            SetGroupOutControl();
+        }
     }
 
     public override void MinionRemoved()
     {
-        curTime = 0f;
         CalculateTime();
     }
 
     private void CalculateTime()
     {
+        curTime = 0f;
         calculatedTime = takeMoneyTime / minionGroup.minions.Count;
     }
 

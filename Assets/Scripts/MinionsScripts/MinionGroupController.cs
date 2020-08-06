@@ -80,7 +80,9 @@ public abstract class MinionGroupController : MonoBehaviour
         this.movePosition = movePosition;
         foreach (Minion minion in minionGroup.minions)
         {
+            minion.inAggro = false;
             minion.SetMoveTarget(movePosition);
+            //minion.ReturnToDefaultPosition();
         }
     }
 

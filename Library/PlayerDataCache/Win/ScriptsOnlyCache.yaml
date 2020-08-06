@@ -14,6 +14,7 @@ ScriptsOnlyBuild:
     - Corpse
     - CursorEnabler
     - DashSpell
+    - DefendArea
     - DemonGroupController
     - DemonMinion
     - DemonSummoner
@@ -170,55 +171,57 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12330}
     - Class: 114
-      Script: {instanceID: 12340}
+      Script: {instanceID: 12334}
     - Class: 114
-      Script: {instanceID: 12352}
+      Script: {instanceID: 12342}
     - Class: 114
-      Script: {instanceID: 12386}
+      Script: {instanceID: 12354}
     - Class: 114
-      Script: {instanceID: 12436}
+      Script: {instanceID: 12388}
     - Class: 114
-      Script: {instanceID: 12468}
+      Script: {instanceID: 12438}
     - Class: 114
-      Script: {instanceID: 12516}
+      Script: {instanceID: 12470}
     - Class: 114
-      Script: {instanceID: 12538}
+      Script: {instanceID: 12518}
     - Class: 114
-      Script: {instanceID: 12568}
+      Script: {instanceID: 12540}
     - Class: 114
-      Script: {instanceID: 12592}
+      Script: {instanceID: 12570}
     - Class: 114
-      Script: {instanceID: 12640}
+      Script: {instanceID: 12594}
     - Class: 114
-      Script: {instanceID: 12718}
+      Script: {instanceID: 12642}
     - Class: 114
-      Script: {instanceID: 12798}
+      Script: {instanceID: 12720}
     - Class: 114
-      Script: {instanceID: 12862}
+      Script: {instanceID: 12800}
     - Class: 114
-      Script: {instanceID: 12866}
+      Script: {instanceID: 12864}
     - Class: 114
-      Script: {instanceID: 12872}
+      Script: {instanceID: 12868}
     - Class: 114
-      Script: {instanceID: 12890}
+      Script: {instanceID: 12874}
     - Class: 114
-      Script: {instanceID: 12958}
+      Script: {instanceID: 12892}
     - Class: 114
-      Script: {instanceID: 12966}
+      Script: {instanceID: 12960}
     - Class: 114
-      Script: {instanceID: 13084}
+      Script: {instanceID: 12968}
     - Class: 114
-      Script: {instanceID: 13140}
+      Script: {instanceID: 13086}
     - Class: 114
-      Script: {instanceID: 13168}
+      Script: {instanceID: 13142}
     - Class: 114
-      Script: {instanceID: 13202}
+      Script: {instanceID: 13170}
     - Class: 114
-      Script: {instanceID: 13222}
+      Script: {instanceID: 13204}
     - Class: 114
-      Script: {instanceID: 13236}
+      Script: {instanceID: 13224}
     - Class: 114
-      Script: {instanceID: 13266}
+      Script: {instanceID: 13238}
+    - Class: 114
+      Script: {instanceID: 13268}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -303,19 +306,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12208}
     - Class: 114
-      Script: {instanceID: 12348}
+      Script: {instanceID: 12350}
     - Class: 114
-      Script: {instanceID: 12446}
+      Script: {instanceID: 12448}
     - Class: 114
-      Script: {instanceID: 12592}
+      Script: {instanceID: 12594}
     - Class: 114
-      Script: {instanceID: 12606}
+      Script: {instanceID: 12608}
     - Class: 114
-      Script: {instanceID: 12862}
+      Script: {instanceID: 12864}
     - Class: 114
-      Script: {instanceID: 13020}
+      Script: {instanceID: 13022}
     - Class: 114
-      Script: {instanceID: 13236}
+      Script: {instanceID: 13238}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -403,7 +406,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: bb5125da0c9c91b1ec92d22d5b05fcdd
+      Hash: 15e44eea958bfe7b244cfd8ba8a3a8f0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZombieMinion
@@ -601,7 +604,7 @@ ScriptsOnlyBuild:
     className: RoachGroupController
   - hash:
       serializedVersion: 2
-      Hash: 95951345540f7059ac989d0762233f0e
+      Hash: 9eb7e804f57debdbb1012aafdb8ece15
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DemonMinion
@@ -679,7 +682,7 @@ ScriptsOnlyBuild:
     className: TMP_Asset
   - hash:
       serializedVersion: 2
-      Hash: 808ac5e0609544aeeb193a6dd7be64f0
+      Hash: e95e48b6be055fd3f57a0c52c0d36340
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -763,6 +766,12 @@ ScriptsOnlyBuild:
     className: particleAttractorLinear
   - hash:
       serializedVersion: 2
+      Hash: 058933bd2c8e6a03f9b90cf613cf9f11
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DefendArea
+  - hash:
+      serializedVersion: 2
       Hash: 6b1acbb2b25adb3728ce113d3a8304e8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -829,7 +838,7 @@ ScriptsOnlyBuild:
     className: rotation
   - hash:
       serializedVersion: 2
-      Hash: bb5125da0c9c91b1ec92d22d5b05fcdd
+      Hash: 15e44eea958bfe7b244cfd8ba8a3a8f0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SniperMinion
@@ -961,7 +970,7 @@ ScriptsOnlyBuild:
     className: ShootSpell
   - hash:
       serializedVersion: 2
-      Hash: f6f25e390835acd5abae1a2ea0c47b24
+      Hash: 1a05d0439b685dafd855ca84493e0ab2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoachMinion

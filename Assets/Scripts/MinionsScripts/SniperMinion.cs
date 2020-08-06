@@ -15,6 +15,18 @@ public class SniperMinion : Minion
         banditPayInteractable = GetComponent<SniperMinionInteractable>();
     }
 
+    protected override void CharacterBehaviour()
+    {
+        if (underControl)
+        {
+            base.CharacterBehaviour();
+        }
+        else if (agent.isStopped == false)
+        {
+            PassiveBehaviour();
+        }
+    }
+
     public override void GoOutControl()
     {
         underControl = false;

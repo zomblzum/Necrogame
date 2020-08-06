@@ -88,7 +88,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         return attackTarget;
     }
 
-    public void SetMoveTarget(Vector3 moveTarget)
+    public virtual void SetMoveTarget(Vector3 moveTarget)
     {
         this.moveTarget = moveTarget;
     }
@@ -169,6 +169,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void PassiveBehaviour()
     {
+        SetMoveTarget(Vector3.zero);
         agent.SetDestination(Vector3.zero);
         agent.isStopped = true;
         animator.SetFloat(speedFloat, 0f);
@@ -235,7 +236,6 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void RunToEnemy()
     {
-        Debug.Log(gameObject.name + " 3");
         SetMoveTarget(attackTarget.transform.position);
     }
 
@@ -290,18 +290,26 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     public void GetClosestTarget()
     {
+        if(attackTargets.Count == 0)
+        {
+            return;
+        }
+
         if (agent.isOnNavMesh)
         {
             float distance = Mathf.Infinity;
             Vector3 position = transform.position;
             foreach (GameObject go in attackTargets)
             {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.sqrMagnitude;
-                if (curDistance < distance)
+                if (go != null)
                 {
-                    attackTarget = go;
-                    distance = curDistance;
+                    Vector3 diff = go.transform.position - position;
+                    float curDistance = diff.sqrMagnitude;
+                    if (curDistance < distance)
+                    {
+                        attackTarget = go;
+                        distance = curDistance;
+                    }
                 }
             }
         }

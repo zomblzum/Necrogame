@@ -9,15 +9,30 @@ public abstract class Minion : Character
     [Header("Теги персонажей, на которые может осуществлятся нападение")]
     public List<string> targetsTags;
 
+    [SerializeField]
+    [Header("Область, защищаемая миньоном")]
+    protected DefendArea defendArea;
+    [SerializeField]
+    [Header("Радиус защищаемой области")]
+    protected float defendAreaRaidus;
+
+
     protected MinionBehaviour minionBehaviour;
     protected MinionCommand minionCommand;
     protected Player player;
+    protected Vector3 localMoveTarget; //нужна для возврата к указанной игроком точке после отбегания от нее
     
     protected virtual void Awake()
     {
+        inAggro = false;
         player = FindObjectOfType<Player>();
         minionBehaviour = FindObjectOfType<MinionBehaviour>();
         attackTargets = new List<GameObject>();
+        localMoveTarget = Vector3.zero;
+        //костыль для защищаемой зоны, чтобы он был не дочерним обьектом
+        defendArea = Instantiate(defendArea, transform.position, transform.rotation);
+        defendArea.SetMinion(this);
+        defendArea.SetAreaRadius(defendAreaRaidus);
     }
 
     protected override void CharacterBehaviour()
@@ -65,6 +80,10 @@ public abstract class Minion : Character
         {
             MovingBehaviour();
         }
+        if (attackTarget != null && inAggro)
+        {
+            AttackTargetInteractionsBehaviour();
+        }
     }
 
     /// <summary>
@@ -74,6 +93,16 @@ public abstract class Minion : Character
     {
         SetMoveTarget(player.transform.position);
         MoveCommand();
+    }
+
+    public void ReturnToDefaultPosition()
+    {
+        if (minionCommand.commandName == "Move" || minionCommand.commandName == "Defend")
+        {
+            attackTarget = null;
+            SetMoveTarget(localMoveTarget);
+            localMoveTarget = Vector3.zero;
+        }
     }
 
     /// <summary>
@@ -126,4 +155,14 @@ public abstract class Minion : Character
     /// Возвращение под контроль
     /// </summary>
     public abstract void GoUnderControl();
+
+    public override void SetMoveTarget(Vector3 moveTarget)
+    {
+        base.SetMoveTarget(moveTarget);
+
+        if (localMoveTarget == Vector3.zero)
+        {
+            localMoveTarget = moveTarget;
+        }
+    }
 }
