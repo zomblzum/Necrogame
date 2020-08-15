@@ -46,6 +46,16 @@ public class DefendArea : MonoBehaviour
         this.minion = minion;
     }
 
+    public int EnemysCount()
+    {
+        return enemies.Count;
+    }
+
+    public List<GameObject> GetEnemies()
+    {
+        return enemies;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Enemy>())

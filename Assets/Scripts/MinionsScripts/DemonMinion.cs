@@ -55,9 +55,10 @@ public class DemonMinion : Minion
         startAttack = false;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if(!underControl)
+        base.Update();
+        if (!underControl)
         {
             if(curTime >= changeRandomTargetTime)
             {

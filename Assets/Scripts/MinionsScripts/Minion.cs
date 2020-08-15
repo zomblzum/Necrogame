@@ -55,6 +55,18 @@ public abstract class Minion : Character
         }
     }
 
+    protected override void Update()
+    {
+        if(minionCommand.commandName == "Move" || minionCommand.commandName == "Defend")
+        {
+            if(attackTargets.Count != defendArea.EnemysCount())
+            {
+                attackTargets = defendArea.GetEnemies();
+            }
+            base.Update();
+        }
+    }
+
     /// <summary>
     /// Реализация поведения при команде АТАКИ
     /// </summary>
@@ -66,8 +78,14 @@ public abstract class Minion : Character
         } 
         else
         {
-            FindTargetsByTags();
-            GetClosestTarget();
+            if(defendArea.EnemysCount() > 0)
+            {
+                attackTargets = defendArea.GetEnemies();
+                GetClosestTarget();
+            }
+            SetCommandBehaviour(new MinionCommand("Move"));
+            //FindTargetsByTags();
+            //GetClosestTarget();
         }
     }
 

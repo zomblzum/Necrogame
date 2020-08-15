@@ -21,8 +21,9 @@ public class RoachMinion : Minion
         Die();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         curTime += Time.deltaTime;
 
         if(curTime >= lifeTime)

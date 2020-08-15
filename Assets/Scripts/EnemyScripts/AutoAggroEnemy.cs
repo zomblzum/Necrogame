@@ -15,17 +15,6 @@ public class AutoAggroEnemy : Enemy
         aggroAreaCollider.radius = aggroDistance;
     }
 
-    private void Update()
-    {
-        //attackTargets.RemoveAll(item => item == null);
-        //if (attackTarget == null && attackTargets.Count > 0)
-        //{
-            
-        //    attackTargets.RemoveAll(item => item == null);
-        //    GetClosestTarget();
-        //}
-    }
-
     // Срабатывает при входе игрока и миньонов в область видимости врага
     protected virtual void OnTriggerEnter(Collider other)
     {

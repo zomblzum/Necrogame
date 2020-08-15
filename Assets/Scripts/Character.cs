@@ -27,6 +27,8 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     public NavMeshAgent agent;
     [Header("Аниматор")]
     public Animator animator;
+    [Header("Фильтр по слоям ждя прицеливания")]
+    public LayerMask ignoreMask;
 
     protected CharacterUI characterUI;
     protected GameObject attackTarget;
@@ -39,7 +41,6 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     protected int hitBool;
     protected int stunBool;
     protected Vector3 moveTarget;
-
 
     /// <summary>
     /// Инициализация персонажа
@@ -149,7 +150,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void CharacterBehaviour()
     {
-        if(moveTarget != Vector3.zero)
+        if (moveTarget != Vector3.zero)
         {
             MovingBehaviour();
         }
@@ -161,6 +162,15 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         else if (attackTarget != null)
         {
             AttackTargetInteractionsBehaviour();
+        }
+    }
+
+    protected virtual void Update()
+    {
+        attackTargets.RemoveAll(item => item == null);
+        if (attackTarget == null && attackTargets.Count > 0 && inAggro)
+        {
+            GetClosestTarget();
         }
     }
 
@@ -188,17 +198,29 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         //костыль для нормального поворота нпс
         transform.LookAt(agent.steeringTarget);
 
+        NavMeshPath path = new NavMeshPath();
 
-        if (Vector3.Distance(transform.position, moveTarget) <= agent.radius * 2 && attackTarget == null)
+        if (NavMesh.CalculatePath(transform.position, moveTarget, NavMesh.AllAreas, path))
         {
-            // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
-            transform.LookAt(moveTarget);
-            PassiveBehaviour();
-        } 
-        else if (animator.GetFloat(speedFloat) == 0)
-        {
-            agent.isStopped = false;
-            animator.SetFloat(speedFloat, 1f);
+            if ((Vector3.Distance(transform.position, moveTarget) <= agent.radius * 1.5) 
+                || path.status != NavMeshPathStatus.PathComplete)
+            {
+                // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
+                transform.LookAt(moveTarget);
+                PassiveBehaviour();
+
+                if(attackTarget)
+                {
+                    inAggro = true;
+                }
+            }
+            else if (animator.GetFloat(speedFloat) == 0
+                && path.status == NavMeshPathStatus.PathComplete)
+            {
+                //agent.SetDestination(moveTarget);
+                agent.isStopped = false;
+                animator.SetFloat(speedFloat, 1f);
+            }
         }
     }
 
@@ -207,7 +229,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void AttackTargetInteractionsBehaviour()
     {
-        if (Vector3.Distance(transform.position, attackTarget.transform.position) <= attackDistance && stunDuration <= 0 && inAggro)
+        if (!WallOnTheWayToTarget() && CanAttack())
         {
             CloseTargetInteraction();
         }
@@ -215,6 +237,29 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         {
             RunToEnemy();
         }
+    }
+
+    protected virtual bool WallOnTheWayToTarget()
+    {
+        RaycastHit hit;
+        bool result = false;
+
+        if (Physics.Linecast(transform.position + new Vector3(0f, 1f, 0f), attackTarget.transform.position + new Vector3(0f, 1f, 0f), out hit, ~ignoreMask))
+        {
+            if (hit.collider)
+            {
+                result = true;
+            } 
+        }
+
+        return result;
+    }
+
+    protected virtual bool CanAttack()
+    {
+        return Vector3.Distance(transform.position, attackTarget.transform.position) <= attackDistance
+                    && stunDuration <= 0
+                    && inAggro;
     }
 
     /// <summary>
