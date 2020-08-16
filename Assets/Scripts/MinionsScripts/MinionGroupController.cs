@@ -10,6 +10,8 @@ public abstract class MinionGroupController : MonoBehaviour
     public Vector3 movePosition;
     [Header("Цель атаки для группы")]
     public GameObject attackTarget;
+    [Header("Модуль для позиционирования миньонов в отряде")]
+    public MinionGroupPositioner minionGroupPositioner;
 
     protected MinionBehaviour.MinionGroup minionGroup;
     protected bool groupUnderControl;
@@ -18,6 +20,11 @@ public abstract class MinionGroupController : MonoBehaviour
     {
         this.minionGroup = minionGroup;
         this.groupUnderControl = true;
+    }
+
+    public virtual string GetMinionType()
+    {
+        return minionGroup.minionType;
     }
 
     /// <summary>
@@ -29,6 +36,7 @@ public abstract class MinionGroupController : MonoBehaviour
     /// Тригер при удалении миньона
     /// </summary>
     public abstract void MinionRemoved();
+
 
     /// <summary>
     /// Заставить всех миньонов подчинятся
@@ -78,11 +86,17 @@ public abstract class MinionGroupController : MonoBehaviour
     public virtual void SetGroupMoveTarget(Vector3 movePosition)
     {
         this.movePosition = movePosition;
-        foreach (Minion minion in minionGroup.minions)
+        //foreach (Minion minion in minionGroup.minions)
+        //{
+        //    minion.inAggro = false;
+        //    minion.SetDefendPoint(movePosition);
+        //    //minion.ReturnToDefaultPosition();
+        //}
+
+        for(int i = 0; i < minionGroup.minions.Count; i++)
         {
-            minion.inAggro = false;
-            minion.SetMoveTarget(movePosition);
-            //minion.ReturnToDefaultPosition();
+            minionGroup.minions[i].inAggro = false;
+            minionGroup.minions[i].SetDefendPoint(GetMovePositionForMinion(i,movePosition));
         }
     }
 
@@ -96,5 +110,46 @@ public abstract class MinionGroupController : MonoBehaviour
         {
             minion.SetCommandBehaviour(minionCommand);
         }
+    }
+
+    /// <summary>
+    /// Расчет места в формации при атаке
+    /// </summary>
+    /// <param name="minionId">номер миньона в списке</param>
+    /// <returns>позиция конкретного миньона в отряде</returns>
+    public virtual Vector3 GetAttackPositionForMinion(int minionId, Vector3 originalPosition)
+    {
+        return originalPosition + minionGroupPositioner.GetMovePosition(minionId);
+    }
+
+    /// <summary>
+    /// Расчет места в формации при движении к точке
+    /// </summary>
+    /// <param name="minionId">номер миньона в списке</param>
+    /// <returns>позиция конкретного миньона в отряде</returns>
+    public virtual Vector3 GetMovePositionForMinion(int minionId, Vector3 originalPosition)
+    {
+        Debug.Log("Оригинал " + originalPosition + " Добавляем " + minionGroupPositioner.GetMovePosition(minionId));
+        return originalPosition + minionGroupPositioner.GetMovePosition(minionId);
+    }
+
+    /// <summary>
+    /// Расчет места в формации при защите игрока
+    /// </summary>
+    /// <param name="minionId">номер миньона в списке</param>
+    /// <returns>позиция конкретного миньона в отряде</returns>
+    public virtual Vector3 GetDefendPositionForMinion(int minionId, Vector3 originalPosition)
+    {
+        return originalPosition + minionGroupPositioner.GetMovePosition(minionId);
+    }
+
+    /// <summary>
+    /// Расчет места в формации при команде рассредоточения
+    /// </summary>
+    /// <param name="minionId">номер миньона в списке</param>
+    /// <returns>позиция конкретного миньона в отряде</returns>
+    public virtual Vector3 GetDisgroupPositionForMinion(int minionId, Vector3 originalPosition)
+    {
+        return originalPosition + minionGroupPositioner.GetMovePosition(minionId);
     }
 }

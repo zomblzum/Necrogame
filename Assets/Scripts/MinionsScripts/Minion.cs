@@ -177,10 +177,11 @@ public abstract class Minion : Character
     public override void SetMoveTarget(Vector3 moveTarget)
     {
         base.SetMoveTarget(moveTarget);
+    }
 
-        if (localMoveTarget == Vector3.zero)
-        {
-            localMoveTarget = moveTarget;
-        }
+    public virtual void SetDefendPoint(Vector3 defendPoint)
+    {
+        localMoveTarget = moveTarget;
+        SetMoveTarget(defendPoint);
     }
 }

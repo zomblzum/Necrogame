@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\MinionsScripts\DemonSummoner.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\Minion.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\MinionGroupController.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\MinionGroupPositioner.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\RoachEgg.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\RoachGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\RoachMinion.cs" />
