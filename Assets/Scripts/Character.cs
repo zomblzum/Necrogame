@@ -190,11 +190,6 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void MovingBehaviour()
     {
-        //Вынужденный костыль с Y
-        moveTarget.y = transform.position.y;
-
-        agent.SetDestination(moveTarget);
-
         //костыль для нормального поворота нпс
         transform.LookAt(agent.steeringTarget);
 
@@ -202,7 +197,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
 
         if (NavMesh.CalculatePath(transform.position, moveTarget, NavMesh.AllAreas, path))
         {
-            if ((Vector3.Distance(transform.position, moveTarget) <= agent.radius * 1.5) 
+            if ((Vector3.Distance(transform.position, moveTarget) <= agent.radius) 
                 || path.status != NavMeshPathStatus.PathComplete)
             {
                 // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
@@ -220,8 +215,23 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
                 //agent.SetDestination(moveTarget);
                 agent.isStopped = false;
                 animator.SetFloat(speedFloat, 1f);
+            } 
+            else
+            {
+                MoveToPoint(moveTarget);
             }
         }
+    }
+
+    /// <summary>
+    /// Бежать к цели
+    /// </summary>
+    protected virtual void MoveToPoint(Vector3 moveTarget)
+    {
+        //Вынужденный костыль с Y
+        moveTarget.y = transform.position.y;
+
+        agent.SetDestination(moveTarget);
     }
 
     /// <summary>
