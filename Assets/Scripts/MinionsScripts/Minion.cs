@@ -16,19 +16,17 @@ public abstract class Minion : Character
     [Header("Радиус защищаемой области")]
     protected float defendAreaRaidus;
 
-
+    protected GameObject moveTarget;
     protected MinionBehaviour minionBehaviour;
     protected MinionCommand minionCommand;
     protected Player player;
-    protected Vector3 localMoveTarget; //нужна для возврата к указанной игроком точке после отбегания от нее
-    
+
     protected virtual void Awake()
     {
         inAggro = false;
         player = FindObjectOfType<Player>();
         minionBehaviour = FindObjectOfType<MinionBehaviour>();
         attackTargets = new List<GameObject>();
-        localMoveTarget = Vector3.zero;
         //костыль для защищаемой зоны, чтобы он был не дочерним обьектом
         defendArea = Instantiate(defendArea, transform.position, transform.rotation);
         defendArea.SetMinion(this);
@@ -82,8 +80,10 @@ public abstract class Minion : Character
             {
                 attackTargets = defendArea.GetEnemies();
                 GetClosestTarget();
+            } else
+            {
+                SetCommandBehaviour(new MinionCommand("Move"));
             }
-            SetCommandBehaviour(new MinionCommand("Move"));
             //FindTargetsByTags();
             //GetClosestTarget();
         }
@@ -94,7 +94,11 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void MoveCommand()
     {
-        if (moveTarget != Vector3.zero)
+        if (moveTarget)
+        {
+            SetMovePoint(moveTarget.transform.position);
+        }
+        if (movePoint != Vector3.zero)
         {
             MovingBehaviour();
         }
@@ -109,7 +113,6 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void DefendCommand()
     {
-        SetMoveTarget(player.transform.position);
         MoveCommand();
     }
 
@@ -118,8 +121,7 @@ public abstract class Minion : Character
         if (minionCommand.commandName == "Move" || minionCommand.commandName == "Defend")
         {
             attackTarget = null;
-            SetMoveTarget(localMoveTarget);
-            localMoveTarget = Vector3.zero;
+            SetMovePoint(moveTarget.transform.position);
         }
     }
 
@@ -128,7 +130,7 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void DisgroupCommand()
     {
-
+        MoveCommand();
     }
 
     public override void Die()
@@ -174,14 +176,9 @@ public abstract class Minion : Character
     /// </summary>
     public abstract void GoUnderControl();
 
-    public override void SetMoveTarget(Vector3 moveTarget)
+    public void SetMoveTarget(GameObject moveTarget)
     {
-        base.SetMoveTarget(moveTarget);
-    }
-
-    public virtual void SetDefendPoint(Vector3 defendPoint)
-    {
-        localMoveTarget = moveTarget;
-        SetMoveTarget(defendPoint);
+        SetMovePoint(moveTarget.transform.position);
+        this.moveTarget = moveTarget;
     }
 }

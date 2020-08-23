@@ -8,11 +8,11 @@ public class AllGroupController : MinionGroupController
     public List<MinionGroupController> minionGroupControllers;
 
 
-    public override void MinionAdded()
+    public override void MinionAdded(Minion minion)
     {
         foreach (MinionGroupController controller in minionGroupControllers)
         {
-            controller.MinionAdded();
+            controller.MinionAdded(minion);
         }
     }
 
@@ -24,11 +24,27 @@ public class AllGroupController : MinionGroupController
         }
     }
 
-    public override void SetGroupMoveTarget(Vector3 movePosition)
+    //public override void SetGroupMovePoint(Vector3 movePosition)
+    //{
+    //    foreach (MinionGroupController controller in minionGroupControllers)
+    //    {
+    //        controller.SetGroupMovePoint(movePosition);
+    //    }
+    //}
+
+    //public override void SetGroupDefendPlayer()
+    //{
+    //    foreach (MinionGroupController controller in minionGroupControllers)
+    //    {
+    //        controller.SetGroupDefendPlayer();
+    //    }
+    //}
+
+    public override void DisgroupMinions()
     {
         foreach (MinionGroupController controller in minionGroupControllers)
         {
-            controller.SetGroupMoveTarget(movePosition);
+            controller.DisgroupMinions();
         }
     }
 
@@ -56,64 +72,69 @@ public class AllGroupController : MinionGroupController
         }
     }
 
-    public override Vector3 GetMovePositionForMinion(int minionId, Vector3 originalPosition)
+    public override void ChangeCurrentCommand(MinionCommand minionCommand)
     {
-        string minionType = minionGroup.minions[minionId].characterName;
+        foreach (MinionGroupController controller in minionGroupControllers)
+        {
+            controller.ChangeCurrentCommand(minionCommand);
+        }
+    }
+
+    public override GameObject GetMovePositionForMinion(int minionId)
+    {
+        Minion minion = minionGroup.minions[minionId];
+        int minionTypesCount = 0;
+        GameObject result = null;
 
         foreach (MinionGroupController controller in minionGroupControllers)
         {
-            if(controller.GetMinionType() == minionType)
+            if (controller.GetMinionsCount() > 0)
             {
-                return controller.GetMovePositionForMinion(minionId, originalPosition);
+                minionTypesCount++;
+            }
+            if (controller.GetMinionType() == minion.characterName)
+            {
+                result = controller.GetMovePositionForMinion(minionId);
             }
         }
 
-        return Vector3.zero;
+        if (result != null && minionTypesCount == 1)
+        {
+            return result;
+        }
+        else
+        {
+            return minionGroupPositioner.GetMovePositionForMinion(minionId, minion.characterName);
+        }
     }
 
-    public override Vector3 GetAttackPositionForMinion(int minionId, Vector3 originalPosition)
+    public override GameObject GetDefendPositionForMinion(int minionId)
     {
-        string minionType = minionGroup.minions[minionId].characterName;
+        Minion minion = minionGroup.minions[minionId];
+        int minionTypesCount = 0;
+        GameObject result = null;
 
         foreach (MinionGroupController controller in minionGroupControllers)
         {
-            if (controller.GetMinionType() == minionType)
+            if (controller.GetMinionsCount() > 0)
             {
-                return controller.GetAttackPositionForMinion(minionId, originalPosition);
+                minionTypesCount++;
+            }
+            if (controller.GetMinionType() == minion.characterName)
+            {
+                result = controller.GetDefendPositionForMinion(minionId);
             }
         }
 
-        return Vector3.zero;
-    }
-
-    public override Vector3 GetDefendPositionForMinion(int minionId, Vector3 originalPosition)
-    {
-        string minionType = minionGroup.minions[minionId].characterName;
-
-        foreach (MinionGroupController controller in minionGroupControllers)
+        if(result != null && minionTypesCount == 1)
         {
-            if (controller.GetMinionType() == minionType)
-            {
-                return controller.GetDefendPositionForMinion(minionId, originalPosition);
-            }
+            return result;
         }
-
-        return Vector3.zero;
-    }
-
-    public override Vector3 GetDisgroupPositionForMinion(int minionId, Vector3 originalPosition)
-    {
-        string minionType = minionGroup.minions[minionId].characterName;
-
-        foreach (MinionGroupController controller in minionGroupControllers)
+        else
         {
-            if (controller.GetMinionType() == minionType)
-            {
-                return controller.GetDisgroupPositionForMinion(minionId, originalPosition);
-            }
+            return minionGroupPositioner.GetDefendPositionForMinion(minionId, minion.characterName);
         }
-
-        return Vector3.zero;
     }
+
 
 }

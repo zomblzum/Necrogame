@@ -4,7 +4,5 @@ using UnityEngine;
 
 public class RoachGroupController : MinionGroupController
 {
-    public override void MinionAdded(){}
-
     public override void MinionRemoved(){}
 }

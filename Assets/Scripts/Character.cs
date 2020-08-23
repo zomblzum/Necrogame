@@ -40,7 +40,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     protected int curHealth;
     protected int hitBool;
     protected int stunBool;
-    protected Vector3 moveTarget;
+    protected Vector3 movePoint;
 
     /// <summary>
     /// Инициализация персонажа
@@ -89,9 +89,9 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         return attackTarget;
     }
 
-    public virtual void SetMoveTarget(Vector3 moveTarget)
+    public virtual void SetMovePoint(Vector3 movePoint)
     {
-        this.moveTarget = moveTarget;
+        this.movePoint = movePoint;
     }
 
     private void FixedUpdate()
@@ -150,7 +150,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void CharacterBehaviour()
     {
-        if (moveTarget != Vector3.zero)
+        if (movePoint != Vector3.zero)
         {
             MovingBehaviour();
         }
@@ -179,7 +179,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void PassiveBehaviour()
     {
-        SetMoveTarget(Vector3.zero);
+        SetMovePoint(Vector3.zero);
         agent.SetDestination(Vector3.zero);
         agent.isStopped = true;
         animator.SetFloat(speedFloat, 0f);
@@ -195,13 +195,13 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
 
         NavMeshPath path = new NavMeshPath();
 
-        if (NavMesh.CalculatePath(transform.position, moveTarget, NavMesh.AllAreas, path))
+        if (NavMesh.CalculatePath(transform.position, movePoint, NavMesh.AllAreas, path))
         {
-            if ((Vector3.Distance(transform.position, moveTarget) <= agent.radius) 
+            if ((Vector3.Distance(transform.position, movePoint) <= agent.radius) 
                 || path.status != NavMeshPathStatus.PathComplete)
             {
                 // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
-                transform.LookAt(moveTarget);
+                transform.LookAt(movePoint);
                 PassiveBehaviour();
 
                 if(attackTarget)
@@ -218,7 +218,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
             } 
             else
             {
-                MoveToPoint(moveTarget);
+                MoveToPoint(movePoint);
             }
         }
     }
@@ -291,7 +291,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// </summary>
     protected virtual void RunToEnemy()
     {
-        SetMoveTarget(attackTarget.transform.position);
+        SetMovePoint(attackTarget.transform.position);
     }
 
     /// <summary>

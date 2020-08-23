@@ -14,8 +14,9 @@ public class BanditGroupController : MinionGroupController
     private float curTime = 0f;
     private float calculatedTime;
 
-    public override void MinionAdded()
+    public override void MinionAdded(Minion minion)
     {
+        base.MinionAdded(minion);
         CalculateTime();
 
         if(!groupUnderControl)

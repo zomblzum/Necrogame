@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AggroByAttackEnemy
     - AllGroupController
+    - AllGroupPositioner
     - AttackBehaviour
     - AutoAggroEnemy
     - BanditGroupController
@@ -24,6 +25,9 @@ ScriptsOnlyBuild:
     - ExplodeCorpseLaserSpell
     - MagicBehaviour
     - MinionBehaviour
+    - MinionFormation
+    - MinionFormationPoint
+    - MinionGroupPositioner
     - MoveBehaviour
     - Player
     - PlayerInteract
@@ -34,6 +38,7 @@ ScriptsOnlyBuild:
     - RoachGroupController
     - RoachMinion
     - RoachSummoner
+    - RotateObject
     - SceneChanger
     - ShootSpell
     - SniperMinion
@@ -56,12 +61,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_StyleSheet
     - TMPro.TMP_SubMeshUI
     - TMPro.TextMeshProUGUI
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -117,111 +116,121 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11348}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11360}
     - Class: 114
-      Script: {instanceID: 11322}
+      Script: {instanceID: 11366}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11430}
     - Class: 114
-      Script: {instanceID: 11422}
+      Script: {instanceID: 11466}
     - Class: 114
-      Script: {instanceID: 11428}
+      Script: {instanceID: 11472}
     - Class: 114
-      Script: {instanceID: 11462}
+      Script: {instanceID: 11506}
     - Class: 114
-      Script: {instanceID: 11524}
+      Script: {instanceID: 11568}
     - Class: 114
-      Script: {instanceID: 11586}
+      Script: {instanceID: 11630}
     - Class: 114
-      Script: {instanceID: 11694}
+      Script: {instanceID: 11740}
     - Class: 114
-      Script: {instanceID: 11754}
+      Script: {instanceID: 11800}
     - Class: 114
-      Script: {instanceID: 11772}
+      Script: {instanceID: 11818}
     - Class: 114
-      Script: {instanceID: 11836}
+      Script: {instanceID: 11882}
     - Class: 114
-      Script: {instanceID: 11862}
+      Script: {instanceID: 11908}
     - Class: 114
-      Script: {instanceID: 11870}
+      Script: {instanceID: 11916}
     - Class: 114
-      Script: {instanceID: 11898}
+      Script: {instanceID: 11944}
     - Class: 114
-      Script: {instanceID: 11936}
+      Script: {instanceID: 11968}
     - Class: 114
-      Script: {instanceID: 12086}
-    - Class: 114
-      Script: {instanceID: 12102}
-    - Class: 114
-      Script: {instanceID: 12110}
+      Script: {instanceID: 11984}
     - Class: 114
       Script: {instanceID: 12134}
     - Class: 114
+      Script: {instanceID: 12150}
+    - Class: 114
+      Script: {instanceID: 12158}
+    - Class: 114
       Script: {instanceID: 12182}
     - Class: 114
-      Script: {instanceID: 12188}
+      Script: {instanceID: 12200}
     - Class: 114
-      Script: {instanceID: 12218}
+      Script: {instanceID: 12232}
     - Class: 114
-      Script: {instanceID: 12250}
+      Script: {instanceID: 12238}
     - Class: 114
-      Script: {instanceID: 12304}
+      Script: {instanceID: 12268}
     - Class: 114
-      Script: {instanceID: 12330}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 12334}
+      Script: {instanceID: 12302}
     - Class: 114
-      Script: {instanceID: 12342}
+      Script: {instanceID: 12356}
     - Class: 114
-      Script: {instanceID: 12354}
+      Script: {instanceID: 12382}
+    - Class: 114
+      Script: {instanceID: 12384}
     - Class: 114
       Script: {instanceID: 12388}
     - Class: 114
-      Script: {instanceID: 12438}
+      Script: {instanceID: 12396}
     - Class: 114
-      Script: {instanceID: 12470}
+      Script: {instanceID: 12408}
     - Class: 114
-      Script: {instanceID: 12518}
+      Script: {instanceID: 12442}
     - Class: 114
-      Script: {instanceID: 12540}
+      Script: {instanceID: 12492}
     - Class: 114
-      Script: {instanceID: 12570}
+      Script: {instanceID: 12524}
+    - Class: 114
+      Script: {instanceID: 12572}
     - Class: 114
       Script: {instanceID: 12594}
     - Class: 114
-      Script: {instanceID: 12642}
+      Script: {instanceID: 12624}
     - Class: 114
-      Script: {instanceID: 12720}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 12800}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 12864}
+      Script: {instanceID: 12698}
     - Class: 114
-      Script: {instanceID: 12868}
+      Script: {instanceID: 12776}
     - Class: 114
-      Script: {instanceID: 12874}
+      Script: {instanceID: 12856}
     - Class: 114
-      Script: {instanceID: 12892}
+      Script: {instanceID: 12920}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12924}
     - Class: 114
-      Script: {instanceID: 12968}
+      Script: {instanceID: 12930}
     - Class: 114
-      Script: {instanceID: 13086}
+      Script: {instanceID: 12948}
+    - Class: 114
+      Script: {instanceID: 13016}
+    - Class: 114
+      Script: {instanceID: 13024}
     - Class: 114
       Script: {instanceID: 13142}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 13198}
     - Class: 114
-      Script: {instanceID: 13204}
+      Script: {instanceID: 13228}
     - Class: 114
-      Script: {instanceID: 13224}
+      Script: {instanceID: 13262}
     - Class: 114
-      Script: {instanceID: 13238}
+      Script: {instanceID: 13282}
     - Class: 114
-      Script: {instanceID: 13268}
+      Script: {instanceID: 13296}
+    - Class: 114
+      Script: {instanceID: 13326}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -290,35 +299,35 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11360}
     - Class: 114
-      Script: {instanceID: 11484}
+      Script: {instanceID: 11528}
     - Class: 114
-      Script: {instanceID: 11524}
+      Script: {instanceID: 11568}
     - Class: 114
-      Script: {instanceID: 11576}
+      Script: {instanceID: 11620}
     - Class: 114
-      Script: {instanceID: 11836}
+      Script: {instanceID: 11882}
     - Class: 114
-      Script: {instanceID: 11936}
+      Script: {instanceID: 11984}
     - Class: 114
-      Script: {instanceID: 11962}
+      Script: {instanceID: 12010}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 12258}
     - Class: 114
-      Script: {instanceID: 12350}
+      Script: {instanceID: 12404}
     - Class: 114
-      Script: {instanceID: 12448}
+      Script: {instanceID: 12502}
     - Class: 114
-      Script: {instanceID: 12594}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 12608}
+      Script: {instanceID: 12662}
     - Class: 114
-      Script: {instanceID: 12864}
+      Script: {instanceID: 12920}
     - Class: 114
-      Script: {instanceID: 13022}
+      Script: {instanceID: 13078}
     - Class: 114
-      Script: {instanceID: 13238}
+      Script: {instanceID: 13296}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -406,7 +415,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 15e44eea958bfe7b244cfd8ba8a3a8f0
+      Hash: 432bccc6bd8fc4af18597b62d284a245
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZombieMinion
@@ -520,6 +529,12 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 8037b5a5c2c80155a18a2623b362806b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: DigitalRuby.LightningBolt
+    className: LightningBoltScript
+  - hash:
+      serializedVersion: 2
       Hash: f1781b3bab8b2f07ca5fbe586e95557a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -586,7 +601,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 3b1b2b9df24f4cafd41d6f368f6408f5
+      Hash: 7d0148182ce51f9eece29ca54586a0e6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ZombieGroupZontroller
@@ -598,16 +613,22 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 1a09c756038784f65e371e495b1d1ec2
+      Hash: 4f4b4ff62c6ca967153a6e2360bf01ac
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoachGroupController
   - hash:
       serializedVersion: 2
-      Hash: 9eb7e804f57debdbb1012aafdb8ece15
+      Hash: 713c011a7604ce7f8df353fc0710c60e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DemonMinion
+  - hash:
+      serializedVersion: 2
+      Hash: 53e0199eed08085239ff7178676cc5db
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MinionGroupPositioner
   - hash:
       serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
@@ -694,6 +715,12 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MinionFormationPoint
+  - hash:
+      serializedVersion: 2
       Hash: 3f5031037e63abe5dcf87c278e01a4de
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -736,6 +763,12 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
+      Hash: b0f21f3eacc1a14b6924fefefcdb4fb0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RotateObject
+  - hash:
+      serializedVersion: 2
       Hash: 4138c453d07f1ea60f9cdb4892222ca0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -758,6 +791,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MinionFormation
   - hash:
       serializedVersion: 2
       Hash: 002020d0363e1d2fc6726436c90292ce
@@ -838,7 +877,7 @@ ScriptsOnlyBuild:
     className: rotation
   - hash:
       serializedVersion: 2
-      Hash: 15e44eea958bfe7b244cfd8ba8a3a8f0
+      Hash: 432bccc6bd8fc4af18597b62d284a245
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SniperMinion
@@ -898,7 +937,13 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: ed0d5c0e9f11d88eda0d67550dccf054
+      Hash: 53e0199eed08085239ff7178676cc5db
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AllGroupPositioner
+  - hash:
+      serializedVersion: 2
+      Hash: 0f41d130c7ac8f7c5983eabccfa652a0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DemonGroupController
@@ -922,7 +967,7 @@ ScriptsOnlyBuild:
     className: BasicBehaviour
   - hash:
       serializedVersion: 2
-      Hash: db8d006a4a9c7c30fc7574164137a38c
+      Hash: 0a3330213ea3d5c5fe100050cc5479fb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
@@ -952,7 +997,7 @@ ScriptsOnlyBuild:
     className: AttackBehaviour
   - hash:
       serializedVersion: 2
-      Hash: 384f486f8afa4da6dcecad9f10a36d62
+      Hash: 5bf5fbe306f224a3e0a3ee5936400ce5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AggroByAttackEnemy
@@ -970,7 +1015,7 @@ ScriptsOnlyBuild:
     className: ShootSpell
   - hash:
       serializedVersion: 2
-      Hash: 1a05d0439b685dafd855ca84493e0ab2
+      Hash: cf3cc3a29441d53ee5c53ccfcec95235
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoachMinion
@@ -1018,7 +1063,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: f04de835d85f20ad5f1491b20b6ba053
+      Hash: cf61321d7176a6a8db27ca17628b6870
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AutoAggroEnemy
@@ -1060,7 +1105,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: 560b15b1036aebdb89a47d23bd2d457f
+      Hash: 94651d4af41b1b361c82636ee7bba2eb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AllGroupController
@@ -1078,7 +1123,7 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
-      Hash: f69fea989171b27cf2a69687a30bc1c5
+      Hash: 9e254e18da586288894552405d0ef379
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BanditGroupController

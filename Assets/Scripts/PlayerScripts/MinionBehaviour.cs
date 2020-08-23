@@ -26,10 +26,8 @@ public class MinionBehaviour : SpellBehaviour
         public void AddMinion(Minion minion)
         {
             minion.SetCommandBehaviour(groupController.minionCommand);
-            minion.SetAttackTarget(groupController.attackTarget);
-            minion.SetMoveTarget(groupController.movePosition);
             minions.Add(minion);
-            groupController.MinionAdded();
+            groupController.MinionAdded(minion);
         }
 
         public void RemoveMinion(Minion minion)
@@ -47,11 +45,19 @@ public class MinionBehaviour : SpellBehaviour
         }
 
         /// <summary>
-        /// Команда передвижения группе
+        /// Команда передвижения группе к точке
         /// </summary>
         public void ChangeMovePosition(Vector3 position)
         {
-            groupController.SetGroupMoveTarget(position);
+            groupController.SetGroupMovePoint(position);
+        }
+
+        /// <summary>
+        /// Команда бежать за игроком
+        /// </summary>
+        public void DefendPlayer()
+        {
+            groupController.SetGroupDefendPlayer();
         }
 
         /// <summary>
@@ -60,6 +66,11 @@ public class MinionBehaviour : SpellBehaviour
         public void ChangeCurrentCommand(MinionCommand minionCommand)
         {
             groupController.ChangeCurrentCommand(minionCommand);
+        }
+
+        public void Disgroup()
+        {
+            groupController.DisgroupMinions();
         }
     }
 
@@ -86,8 +97,8 @@ public class MinionBehaviour : SpellBehaviour
         foreach(MinionGroup minionGroup in minionGroups)
         {
             minionGroup.groupController.SetGroupToController(minionGroup);
-            minionGroup.ChangeCurrentCommand(new MinionCommand("Disgroup"));
         }
+        minionGroups[0].ChangeCurrentCommand(new MinionCommand("Disgroup"));
     }
 
     void Update()
@@ -131,18 +142,20 @@ public class MinionBehaviour : SpellBehaviour
             {
                 // команда защиты
                 ChangeGroupCommand(new MinionCommand("Defend"));
+                DefendPlayer();
             }
             if (Input.GetButtonDown(thirdSpellButton))
             {
                 // команда двигаться
                 Vector3 position = FindObjectOfType<ThirdPersonOrbitCamBasic>().playerTarget.GetCurrentPosition();
                 ChangeGroupCommand(new MinionCommand("Move"));
-                ChangeGroupMoveTarget(position);
+                ChangeGroupMovePosition(position);
             }
             if (Input.GetButtonDown(fourthSpellButton))
             {
                 // команда рассредоточиться
                 ChangeGroupCommand(new MinionCommand("Disgroup"));
+                DisgroupMinions();
             }
         }
         else
@@ -201,19 +214,18 @@ public class MinionBehaviour : SpellBehaviour
     /// Поменять цель движения в зависимости от выбранной группы
     /// </summary>
     /// <param name="movePosition">Точка для перемещения</param>
-    public void ChangeGroupMoveTarget(Vector3 movePosition)
+    public void ChangeGroupMovePosition(Vector3 movePosition)
     {
-        if (minionGroups[currentGroup].minionType == "All")
-        {
-            foreach (MinionGroup minionGroup in minionGroups)
-            {
-                minionGroup.ChangeMovePosition(movePosition);
-            }
-        }
-        else
-        {
-            minionGroups[currentGroup].ChangeMovePosition(movePosition);
-        }
+        minionGroups[currentGroup].ChangeMovePosition(movePosition);
+    }
+
+    /// <summary>
+    /// Послать защищать игрока
+    /// </summary>
+    /// <param name="moveTarget">Объект для прелседования</param>
+    public void DefendPlayer()
+    {
+        minionGroups[currentGroup].DefendPlayer();
     }
 
     /// <summary>
@@ -222,17 +234,12 @@ public class MinionBehaviour : SpellBehaviour
     /// <param name="attackTarget">Новая цель для атаки</param>
     public void ChangeGroupAttackTarget(GameObject attackTarget)
     {
-        if (minionGroups[currentGroup].minionType == "All")
-        {
-            foreach (MinionGroup minionGroup in minionGroups)
-            {
-                minionGroup.ChangeAttackTarget(attackTarget);
-            }
-        }
-        else
-        {
-            minionGroups[currentGroup].ChangeAttackTarget(attackTarget);
-        }
+        minionGroups[currentGroup].ChangeAttackTarget(attackTarget);
+    }
+
+    public void DisgroupMinions()
+    {
+        minionGroups[currentGroup].Disgroup();
     }
 
     /// <summary>

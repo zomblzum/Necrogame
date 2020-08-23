@@ -11,8 +11,9 @@ public class DemonGroupController : MinionGroupController
     private float calculatedServeTime = 100f;
 
 
-    public override void MinionAdded()
+    public override void MinionAdded(Minion minion)
     {
+        base.MinionAdded(minion);
         CalculateTime();
     }
 
@@ -41,8 +42,29 @@ public class DemonGroupController : MinionGroupController
 
     public override void ChangeCurrentCommand(MinionCommand minionCommand)
     {
+        if(this.minionCommand.commandName != minionCommand.commandName)
+        {
+            RestartTriggerTime();
+        }
         base.ChangeCurrentCommand(minionCommand);
-        RestartTriggerTime();
+    }
+
+    public override void SetGroupAttackTarget(GameObject attackTarget)
+    {
+        if(this.attackTarget != attackTarget)
+        {
+            RestartTriggerTime();
+        }
+        base.SetGroupAttackTarget(attackTarget);
+    }
+
+    public override void SetGroupMovePoint(Vector3 movePosition)
+    {
+        if (this.movePosition != movePosition)
+        {
+            RestartTriggerTime();
+        }
+        base.SetGroupMovePoint(movePosition);
     }
 
     private void RestartTriggerTime()

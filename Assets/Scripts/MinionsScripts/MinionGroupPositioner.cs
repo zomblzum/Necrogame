@@ -2,22 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Менеджер для управления формациями
+/// Не самый ООП код, но нет смысла делать это интерфейсом и делать реализации
+/// т.к. не будет общего шаблона тогда
+/// </summary>
 public class MinionGroupPositioner: MonoBehaviour
 {
     [Header("Формация отряда при движении")]
-    public GameObject moveFormation;
+    public MinionFormation moveFormation;
+    [Header("Формация отряда для защиты объекта")]
+    public MinionFormation defendFormation;
+    [Header("Формация отряда при разгрупировке")]
+    public MinionFormation disgroupFormation;
 
-    private Transform[] movePositionList;
-
-    private void Start()
+    public void SetMoveFormationPosition(Vector3 position)
     {
-        movePositionList = moveFormation.GetComponentsInChildren<Transform>();
+        moveFormation.transform.LookAt(position);
+        moveFormation.transform.position = position;
     }
 
-    public Vector3 GetMovePosition(int minionId)
+    public void SetDisgroupFormationPosition(Vector3 position)
     {
-        // Ставим id+1, потому что метод GetComponentsInChildren получает дочерние объекты + родительский
-        // Получается 11 объектов вместо 10
-        return movePositionList[minionId + 1].localPosition;
+        disgroupFormation.transform.LookAt(position);
+        disgroupFormation.transform.position = position;
+    }
+
+    public virtual GameObject GetMoveObject(int minionId)
+    {
+        return moveFormation.GetPosition(minionId);
+    }
+
+    public virtual GameObject GetDefendObject(int minionId)
+    {
+        return defendFormation.GetPosition(minionId);
+    }
+
+    public virtual GameObject GetDisgroupObject(int minionId)
+    {
+        return disgroupFormation.GetPosition(minionId);
+    }
+
+    public virtual GameObject GetDefendPositionForMinion(int minionId, string minionType) 
+    {
+        return GetDefendObject(minionId);
+    }
+
+    public virtual GameObject GetMovePositionForMinion(int minionId, string minionType) 
+    {
+        return GetMoveObject(minionId);
     }
 }

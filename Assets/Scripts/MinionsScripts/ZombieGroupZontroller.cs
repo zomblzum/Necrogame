@@ -6,9 +6,10 @@ public class ZombieGroupZontroller : MinionGroupController
 {
     public MinionBehaviour minionBehaviour;
 
-    public override void MinionAdded()
+    public override void MinionAdded(Minion minion)
     {
-        if(minionGroup.minions.Count > minionBehaviour.maxMinions)
+        base.MinionAdded(minion);
+        if(minionBehaviour.minionGroups[0].minions.Count > minionBehaviour.maxMinions)
         {
             SetGroupOutControl();
         }
@@ -16,7 +17,7 @@ public class ZombieGroupZontroller : MinionGroupController
 
     public override void MinionRemoved()
     {
-        if (minionGroup.minions.Count <= minionBehaviour.maxMinions)
+        if (minionBehaviour.minionGroups[0].minions.Count <= minionBehaviour.maxMinions)
         {
             SetGroupUnderControl();
         }
