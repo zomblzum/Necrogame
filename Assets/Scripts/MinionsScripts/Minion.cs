@@ -10,6 +10,13 @@ public abstract class Minion : Character
     public List<string> targetsTags;
 
     [SerializeField]
+    [Header("Объект, для определения координат при команде разбежаться")]
+    protected MinionFleeObject fleeTarget;
+    [SerializeField]
+    [Header("Радиус области побега")]
+    protected float fleeAreaRaidus;
+
+    [SerializeField]
     [Header("Область, защищаемая миньоном")]
     protected DefendArea defendArea;
     [SerializeField]
@@ -27,10 +34,14 @@ public abstract class Minion : Character
         player = FindObjectOfType<Player>();
         minionBehaviour = FindObjectOfType<MinionBehaviour>();
         attackTargets = new List<GameObject>();
-        //костыль для защищаемой зоны, чтобы он был не дочерним обьектом
+        //спавн для защищаемой зоны, чтобы он был не дочерним обьектом
         defendArea = Instantiate(defendArea, transform.position, transform.rotation);
         defendArea.SetMinion(this);
         defendArea.SetAreaRadius(defendAreaRaidus);
+        //спавн для объекта, определяющего куда бежать при разбеге
+        fleeTarget = Instantiate(fleeTarget, transform.position, transform.rotation);
+        fleeTarget.SetMinion(this);
+        fleeTarget.SetAreaRadius(fleeAreaRaidus);
     }
 
     protected override void CharacterBehaviour()
@@ -94,7 +105,7 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void MoveCommand()
     {
-        if (moveTarget)
+        if (moveTarget && minionCommand.commandName == "Defend")
         {
             SetMovePoint(moveTarget.transform.position);
         }
@@ -130,12 +141,24 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void DisgroupCommand()
     {
-        MoveCommand();
+        inAggro = false;
+        
+        if (fleeTarget.NeedToFlee())
+        {
+            SetMovePoint(fleeTarget.GetFleeCoordinates());
+            MoveCommand();
+        }
+        else if (movePoint == Vector3.zero || !fleeTarget.NeedToFlee())
+        {
+            PassiveBehaviour();
+        }
     }
 
     public override void Die()
     {
         minionBehaviour.RemoveMinion(this);
+        Destroy(defendArea.gameObject);
+        Destroy(fleeTarget.gameObject);
         base.Die();
     }
 

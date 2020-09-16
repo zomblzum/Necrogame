@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Реализация простого врага
@@ -14,4 +15,17 @@ public class Enemy : Character
             attackTarget = attackFrom;
         }
 	}
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override bool IgnoreWrongPath()
+    {
+        if (attackTarget && attackTarget.GetComponent<Player>())
+            return true;
+        else
+            return base.IgnoreWrongPath();
+    }
 }

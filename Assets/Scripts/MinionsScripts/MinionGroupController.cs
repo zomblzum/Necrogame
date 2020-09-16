@@ -106,6 +106,7 @@ public abstract class MinionGroupController : MonoBehaviour
         this.movePosition = movePosition;
 
         minionGroupPositioner.SetMoveFormationPosition(movePosition);
+        //minionGroupPositioner.SetDisgroupFormationPosition(movePosition);
         for (int i = 0; i < minionGroup.minions.Count; i++)
         {
             minionGroup.minions[i].inAggro = false;
@@ -130,8 +131,6 @@ public abstract class MinionGroupController : MonoBehaviour
     /// </summary>
     public virtual void DisgroupMinions()
     {
-        minionGroupPositioner.SetDisgroupFormationPosition(transform.position);
-
         for (int i = 0; i < minionGroup.minions.Count; i++)
         {
             minionGroup.minions[i].inAggro = false;

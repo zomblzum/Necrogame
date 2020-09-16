@@ -175,17 +175,10 @@ public class MinionBehaviour : SpellBehaviour
     /// <param name="minion">Любая реализация прислужника</param>
     public void AddMinion(Minion minion)
     {
-        // Добавляем прислужника в общую и соответствующую ему группу
-        foreach (MinionGroup group in minionGroups)
-        {
-            if (group.minionType == "All" || group.minionType == minion.characterName)
-            {
-                group.AddMinion(minion);
-            }
-        }
-
+        minionGroups[currentGroup].AddMinion(minion);
+        
         // Если выбрана одна из двух вышеуказанных групп, то обновляем счетчик
-        if(minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
+        if (minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
         {
             UpdateMinionsCounter();
         }
@@ -197,17 +190,7 @@ public class MinionBehaviour : SpellBehaviour
     /// <param name="minionCommand">Новая команда</param>
     public void ChangeGroupCommand(MinionCommand minionCommand)
     {
-        if(minionGroups[currentGroup].minionType == "All")
-        {
-            foreach(MinionGroup minionGroup in minionGroups)
-            {
-                minionGroup.ChangeCurrentCommand(minionCommand);
-            }
-        }
-        else
-        {
-            minionGroups[currentGroup].ChangeCurrentCommand(minionCommand);
-        }
+        minionGroups[currentGroup].ChangeCurrentCommand(minionCommand);
     }
 
     /// <summary>
@@ -251,13 +234,7 @@ public class MinionBehaviour : SpellBehaviour
     {
         // Аналогично как с добавлением
         // Небольшое дублированние кода, но так он более очевидный и чистый
-        foreach (MinionGroup group in minionGroups)
-        {
-            if (group.minionType == "All" || group.minionType == minion.characterName)
-            {
-                group.RemoveMinion(minion);
-            }
-        }
+        minionGroups[currentGroup].RemoveMinion(minion);
 
         if (minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
         {

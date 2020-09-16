@@ -14,6 +14,7 @@ public class AllGroupController : MinionGroupController
         {
             controller.MinionAdded(minion);
         }
+        base.MinionAdded(minion);
     }
 
     public override void MinionRemoved()
@@ -24,13 +25,14 @@ public class AllGroupController : MinionGroupController
         }
     }
 
-    //public override void SetGroupMovePoint(Vector3 movePosition)
-    //{
-    //    foreach (MinionGroupController controller in minionGroupControllers)
-    //    {
-    //        controller.SetGroupMovePoint(movePosition);
-    //    }
-    //}
+    public override void SetGroupMovePoint(Vector3 movePosition)
+    {
+        base.SetGroupMovePoint(movePosition);
+        foreach (MinionGroupController controller in minionGroupControllers)
+        {
+            controller.minionGroupPositioner.SetMoveFormationPosition(movePosition);
+        }
+    }
 
     //public override void SetGroupDefendPlayer()
     //{
@@ -74,6 +76,7 @@ public class AllGroupController : MinionGroupController
 
     public override void ChangeCurrentCommand(MinionCommand minionCommand)
     {
+        base.ChangeCurrentCommand(minionCommand);
         foreach (MinionGroupController controller in minionGroupControllers)
         {
             controller.ChangeCurrentCommand(minionCommand);

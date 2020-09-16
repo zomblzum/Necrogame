@@ -11,7 +11,6 @@ public class AutoAggroEnemy : Enemy
 
     void Awake()
     {
-        attackTargets = new List<GameObject>();
         aggroAreaCollider.radius = aggroDistance;
     }
 

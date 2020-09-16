@@ -71,6 +71,8 @@
     <Compile Include="Assets\Scripts\EnemyScripts\Corpse.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\EnemyPriorityZone.cs" />
+    <Compile Include="Assets\Scripts\EnemyScripts\Villager.cs" />
+    <Compile Include="Assets\Scripts\EnemyScripts\VillagerFleeObject.cs" />
     <Compile Include="Assets\Scripts\IAttackable.cs" />
     <Compile Include="Assets\Scripts\IDieable.cs" />
     <Compile Include="Assets\Scripts\IStunable.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Assets\Scripts\MinionsScripts\BanditGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\BanditSummoner.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\Commands\MinionCommand.cs" />
+    <Compile Include="Assets\Scripts\MinionsScripts\Commands\MinionFleeObject.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\Commands\MinionFormation.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\Commands\MinionFormationPoint.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\DefendArea.cs" />
@@ -121,7 +124,9 @@
     <Compile Include="Assets\Scripts\SpellScripts\SpellUI.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\StunLaserSpell.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\CursorEnabler.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\DrawArrow.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\FleeObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\PlayerTarget.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\RotateObject.cs" />

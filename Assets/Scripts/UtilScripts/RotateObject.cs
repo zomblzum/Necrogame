@@ -18,4 +18,15 @@ public class RotateObject : MonoBehaviour
             rotateSpeed.z * Time.deltaTime, 
             Space.Self);
     }
+
+    private void OnDrawGizmos()
+    {
+        //Рисуем сферу
+        Gizmos.color = new Color(0, 0, 0);
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one) * Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
+        Gizmos.DrawWireSphere(Vector3.zero, 3f);
+        //Рисуем стрелку
+        Gizmos.color = new Color(1, 0, 0);
+        DrawArrow.ForGizmo(new Vector3(3f, 0, 0), (Quaternion.Euler(-90,0,0) * rotateSpeed)/100);
+    }
 }

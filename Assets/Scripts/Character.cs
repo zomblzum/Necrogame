@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -67,6 +68,7 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
         curHealth = health;
 
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        attackTargets = new List<GameObject>();
     }
 
     /// <summary>
@@ -195,22 +197,27 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
 
         NavMeshPath path = new NavMeshPath();
 
-        if (NavMesh.CalculatePath(transform.position, movePoint, NavMesh.AllAreas, path))
+        if (NavMesh.CalculatePath(transform.position, movePoint, NavMesh.AllAreas, path) ||
+            IgnoreWrongPath())
         {
             if ((Vector3.Distance(transform.position, movePoint) <= agent.radius) 
-                || path.status != NavMeshPathStatus.PathComplete)
+                || (path.status != NavMeshPathStatus.PathComplete && !IgnoreWrongPath()))
             {
                 // очередной костыль, без которого миньон разворачивается на рандомный угол при остановке
-                transform.LookAt(movePoint);
-                PassiveBehaviour();
-
                 if(attackTarget)
                 {
+                    transform.LookAt(attackTarget.transform.position);
                     inAggro = true;
                 }
+                else
+                {
+                    transform.LookAt(movePoint);
+                }
+
+                PassiveBehaviour();
             }
             else if (animator.GetFloat(speedFloat) == 0
-                && path.status == NavMeshPathStatus.PathComplete)
+                && (path.status == NavMeshPathStatus.PathComplete || IgnoreWrongPath()))
             {
                 //agent.SetDestination(moveTarget);
                 agent.isStopped = false;
@@ -221,6 +228,16 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
                 MoveToPoint(movePoint);
             }
         }
+    }
+
+    /// <summary>
+    /// Информация о игнорировании невозможности достигнуть цель
+    /// Костыльный метод, т.к. игрок является препятствием, чтобы его оббегали миньоны, но тогда враги не могут до него добраться
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool IgnoreWrongPath()
+    {
+        return false;
     }
 
     /// <summary>

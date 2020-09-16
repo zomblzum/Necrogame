@@ -22,7 +22,6 @@ public class EnemyPriorityZone : MonoBehaviour
     // Срабатывает при входе игрока и миньонов в область видимости врага
     protected virtual void OnTriggerEnter(Collider other)
     {
-        return;
         if (other.gameObject.GetComponent<Minion>() || other.gameObject.GetComponent<Player>())
         {
             priorityTargets.Add(other.gameObject);

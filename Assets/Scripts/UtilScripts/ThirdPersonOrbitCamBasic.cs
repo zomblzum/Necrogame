@@ -17,6 +17,8 @@ public class ThirdPersonOrbitCamBasic : MonoBehaviour
 	public string YAxis = "Analog Y";                                  // The default vertical axis input name.
 	public PlayerTarget playerTarget;
 	public LayerMask ignoreMask;
+	public Transform leftBorder;
+	public Transform rightBorder;
 
 	private float angleH = 0;                                          // Float to store camera horizontal angle related to mouse movement.
 	private float angleV = 0;                                          // Float to store camera vertical angle related to mouse movement.

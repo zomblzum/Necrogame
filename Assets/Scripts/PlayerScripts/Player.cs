@@ -93,7 +93,8 @@ public class Player : MonoBehaviour, IAttackable, IDieable
     public void GetHit(GameObject attackFrom, int damage)
     {
         RaycastHit hit;
-        if(Physics.Linecast(transform.position + new Vector3(0f,1f,0f), attackFrom.transform.position + new Vector3(0f, 1f, 0f), out hit, ~ignoreMask))
+        if(!attackFrom.GetComponent<ZombieMinion>()
+            && Physics.Linecast(transform.position + new Vector3(0f,1f,0f), attackFrom.transform.position + new Vector3(0f, 1f, 0f), out hit, ~ignoreMask))
         {
             if (hit.collider && hit.collider.GetComponent<Minion>())
             {
