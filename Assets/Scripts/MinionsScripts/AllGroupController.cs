@@ -7,16 +7,6 @@ public class AllGroupController : MinionGroupController
     [Header("Все группы миньонов")]
     public List<MinionGroupController> minionGroupControllers;
 
-
-    public override void MinionAdded(Minion minion)
-    {
-        foreach (MinionGroupController controller in minionGroupControllers)
-        {
-            controller.MinionAdded(minion);
-        }
-        base.MinionAdded(minion);
-    }
-
     public override void MinionRemoved()
     {
         foreach (MinionGroupController controller in minionGroupControllers)

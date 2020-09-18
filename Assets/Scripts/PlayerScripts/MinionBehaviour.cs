@@ -98,7 +98,7 @@ public class MinionBehaviour : SpellBehaviour
         {
             minionGroup.groupController.SetGroupToController(minionGroup);
         }
-        minionGroups[0].ChangeCurrentCommand(new MinionCommand("Disgroup"));
+        minionGroups[0].ChangeCurrentCommand(new MinionCommand("Defend"));
     }
 
     void Update()
@@ -175,6 +175,19 @@ public class MinionBehaviour : SpellBehaviour
     /// <param name="minion">Любая реализация прислужника</param>
     public void AddMinion(Minion minion)
     {
+        // Костыль для того, чтобы добавить сначала миньона в его личную группу, и только потом в общую
+        // Т.к когда миньон добавляется, то ему присваиваются команды, если текущая группа ВСЕ, то необходимо присвоить миньону команды общие последними
+        if (minionGroups[currentGroup].minionType == "All")
+        {
+            foreach (MinionGroup minionGroup in minionGroups)
+            {
+                if (minionGroup.minionType == minion.characterName)
+                {
+                    minionGroup.AddMinion(minion);
+                }
+            }
+        }
+
         minionGroups[currentGroup].AddMinion(minion);
         
         // Если выбрана одна из двух вышеуказанных групп, то обновляем счетчик
