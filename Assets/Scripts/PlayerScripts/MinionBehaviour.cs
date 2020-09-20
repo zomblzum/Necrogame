@@ -186,9 +186,26 @@ public class MinionBehaviour : SpellBehaviour
                     minionGroup.AddMinion(minion);
                 }
             }
+            minionGroups[currentGroup].AddMinion(minion);
+        }
+        else if (minionGroups[currentGroup].minionType != minion.characterName)
+        {
+            minionGroups[0].AddMinion(minion);
+            foreach (MinionGroup minionGroup in minionGroups)
+            {
+                if (minionGroup.minionType == minion.characterName)
+                {
+                    minionGroup.AddMinion(minion);
+                }
+            }
+        }
+        else
+        {
+            // Добавим в общую группу и в текующую
+            minionGroups[0].AddMinion(minion);
+            minionGroups[currentGroup].AddMinion(minion);
         }
 
-        minionGroups[currentGroup].AddMinion(minion);
         
         // Если выбрана одна из двух вышеуказанных групп, то обновляем счетчик
         if (minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
