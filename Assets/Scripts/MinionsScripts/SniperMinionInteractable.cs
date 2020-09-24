@@ -33,6 +33,9 @@ public class SniperMinionInteractable : MonoBehaviour, Interactable
 
     public void SetActiveStatus(bool status)
     {
-        interactCollider.isTrigger = status;
+        if (interactCollider)
+        {
+            interactCollider.isTrigger = status;
+        }
     }
 }
