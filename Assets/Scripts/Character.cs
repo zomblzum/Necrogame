@@ -123,11 +123,21 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
             animator.SetBool(hitBool,true);
             curHealth -= damage;
             characterUI.UpdateHealthBar(curHealth);
-            if (curHealth <= 0)
+
+            if ((float)curHealth / (float)health <= 0.3f && !characterUI.IsScaled())
+            {
+                characterUI.SetScaleMode(true);
+            }
+            else if ((float)curHealth / (float)health > 0.3f && characterUI.IsScaled())
+            {
+                characterUI.SetScaleMode(false);
+            }
+            else if (curHealth <= 0)
             {
                 curHealth = 0;
                 Die();
             }
+
             StartCoroutine(StopHitAnimation());
         }
     }
