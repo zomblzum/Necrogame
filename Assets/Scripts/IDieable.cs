@@ -6,7 +6,7 @@ public interface IDieable
     /// <summary>
     /// Смерть
     /// </summary>
-    void Die();
+    void Die(string deathText);
 
 
     /// <summary>

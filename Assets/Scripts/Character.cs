@@ -123,19 +123,20 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
             animator.SetBool(hitBool,true);
             curHealth -= damage;
             characterUI.UpdateHealthBar(curHealth);
+            characterUI.characterDamageUI.SpawnDamageText(damage.ToString());
 
-            if ((float)curHealth / (float)health <= 0.3f && !characterUI.IsScaled())
+            if (curHealth <= 0)
+            {
+                curHealth = 0;
+                Die(damage.ToString());
+            }
+            else if ((float)curHealth / (float)health <= 0.3f && !characterUI.IsScaled())
             {
                 characterUI.SetScaleMode(true);
             }
             else if ((float)curHealth / (float)health > 0.3f && characterUI.IsScaled())
             {
                 characterUI.SetScaleMode(false);
-            }
-            else if (curHealth <= 0)
-            {
-                curHealth = 0;
-                Die();
             }
 
             StartCoroutine(StopHitAnimation());
@@ -324,14 +325,17 @@ public abstract class Character : MonoBehaviour, IAttackable, IDieable, IStunabl
     /// <summary>
     /// Смерть
     /// </summary>
-    public virtual void Die()
+    public virtual void Die(string deathText)
     {
         Vector3 corpsePost = transform.position;
         // Сначала отключаем коллайдер на этом персонаже, иначе труп может улететь из за колизии
         gameObject.GetComponent<Collider>().enabled = false;
         // Спамим труп
         Instantiate(deathEffect, new Vector3(corpsePost.x, corpsePost.y, corpsePost.z), Quaternion.Euler(new Vector3(0f, 0f)));
-        Instantiate(corpse.gameObject, new Vector3(corpsePost.x,corpsePost.y, corpsePost.z), Quaternion.Euler(new Vector3(0f, 90f)));
+        Corpse spawnedCorpse = Instantiate(corpse.gameObject, new Vector3(corpsePost.x,corpsePost.y, corpsePost.z), Quaternion.Euler(new Vector3(0f, 0f))).GetComponent<Corpse>();
+        //выводим последний полученный удар
+        spawnedCorpse.characterDamageUI.transform.LookAt(FindObjectOfType<Player>().transform);
+        spawnedCorpse.characterDamageUI.SpawnDamageText(deathText);
         // А теперь убираем персонажа
         Destroy(this.gameObject);
     }

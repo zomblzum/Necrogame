@@ -8,8 +8,10 @@ public class CharacterUI : MonoBehaviour
 {
     [Header("Индикатор здоровья")] public Slider healthBar;
     [Header("Поле с именем")] public TextMeshProUGUI characterName;
-    [Header("Панель с данными персонажа")]  public Canvas characterPanel;
-    
+    [Header("Панель с данными персонажа")] public Canvas characterPanel;
+    [Header("Интерфейс обработчик урона")] public CharacterDamageUI characterDamageUI;
+
+
     private bool scaled = false;
     private float canvasSize;
 
@@ -46,6 +48,7 @@ public class CharacterUI : MonoBehaviour
     private void Update()
     {
         characterPanel.transform.LookAt(Camera.main.transform.position);
+        characterDamageUI.transform.LookAt(Camera.main.transform.position);
     }
 
     private void Start()

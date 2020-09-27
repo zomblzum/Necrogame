@@ -13,12 +13,12 @@ public class RoachMinion : Minion
 
     public override void GoOutControl()
     {
-        Die();
+        Die("-Roach");
     }
 
     public override void GoUnderControl()
     {
-        Die();
+        Die("-Roach");
     }
 
     protected override void Update()
@@ -28,7 +28,7 @@ public class RoachMinion : Minion
 
         if(curTime >= lifeTime)
         {
-            Die();
+            Die("-Roach");
         }
     }
 }

@@ -5,13 +5,22 @@
 /// </summary>
 public abstract class Spell : MonoBehaviour
 {
+    [Header("Здоровье")]
+    public int healthBonus = 0;
+    [Header("Мана")]
+    public int manaBonus = 0;
+    [Header("Атака")]
+    public int attackBonus = 0;
+    [Header("Цена покупки")]
+    public int buyingPrice = 0;
+    [Space(20)]
     [Header("Выбрана ли способность")] public bool active;
-    [Header("Стоймость")] public int price = 1;
+    [Header("Стоймость использования")] public int usingPrice = 1;
     [Header("Время восстановления")] public float coolDown = 3f;
     [Header("Интерфейсная составляющая")] public SpellUI spellUI;
 
     protected MagicBehaviour magicBehaviour;
-
+    
     private float coolDownMax;
 
     /// <summary>
@@ -29,6 +38,10 @@ public abstract class Spell : MonoBehaviour
         magicBehaviour = FindObjectOfType<MagicBehaviour>();
         coolDownMax = coolDown;
         coolDown = 0f;
+
+        magicBehaviour.player.health += healthBonus;
+        magicBehaviour.player.mana += manaBonus;
+        magicBehaviour.attackBehaviour.attackPower += attackBonus;
     }
 
     /// <summary>

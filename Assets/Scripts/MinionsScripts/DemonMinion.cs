@@ -99,23 +99,25 @@ public class DemonMinion : Minion
     private void OnTriggerEnter(Collider other)
     {
         //agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
+        IStunable stunableCharacter = other.gameObject.GetComponent<IStunable>();
 
-        if(underControl)
+        if(stunableCharacter == null)
+        {
+            return;
+        }
+        else if (underControl)
         {
             // Если под контролем, то станим только врагов
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            if (enemy != null)
+            if (!other.gameObject.GetComponent<Player>() && !other.gameObject.GetComponent<Minion>())
             {
-                enemy.StunForTime(stunTimeFromAttack);
+                stunableCharacter.StunForTime(stunTimeFromAttack);
             }
         }
         else
         {
             // Если нет, то всех кого можем
-            IStunable stunableCharacter = other.gameObject.GetComponent<IStunable>();
-
-            if (stunableCharacter != null && other.gameObject.GetComponent<DemonMinion>() == null)
+            if (!other.gameObject.GetComponent<DemonMinion>())
             {
                 stunableCharacter.StunForTime(stunTimeFromAttack);
             }

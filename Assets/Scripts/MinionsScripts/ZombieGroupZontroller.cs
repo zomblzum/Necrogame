@@ -1,21 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ZombieGroupZontroller : MinionGroupController
+﻿public class ZombieGroupZontroller : MinionGroupController
 {
     public MinionBehaviour minionBehaviour;
 
     public override void MinionAdded(Minion minion)
     {
         base.MinionAdded(minion);
-        if(minionBehaviour.minionGroups[0].minions.Count > minionBehaviour.maxMinions)
+        GoOutConrolIfAboveMaxMinions();
+    }
+
+    public override void MinionRemoved()
+    {
+        GoUnderConrolIfNotMaxMinions();
+    }
+
+    public void GoOutConrolIfAboveMaxMinions()
+    {
+        if (minionBehaviour.minionGroups[0].minions.Count > minionBehaviour.maxMinions)
         {
             SetGroupOutControl();
         }
     }
 
-    public override void MinionRemoved()
+    public void GoUnderConrolIfNotMaxMinions()
     {
         if (minionBehaviour.minionGroups[0].minions.Count <= minionBehaviour.maxMinions)
         {

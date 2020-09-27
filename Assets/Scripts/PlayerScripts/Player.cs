@@ -84,7 +84,7 @@ public class Player : MonoBehaviour, IAttackable, IDieable
         }
     }
 
-    public void Die()
+    public void Die(string deathText)
     {
         //Тестовая версия смерти
         new SceneChanger().ChangeScene("MenuScene");
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour, IAttackable, IDieable
             if (curHealth <= 0)
             {
                 curHealth = 0;
-                Die();
+                Die("WASTED");
             }
         }
     }

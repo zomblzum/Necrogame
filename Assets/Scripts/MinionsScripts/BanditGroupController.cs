@@ -38,7 +38,7 @@ public class BanditGroupController : MinionGroupController
 
     public override void SetGroupUnderControl()
     {
-        if(!groupUnderControl)
+        if(!groupUnderControl && player.money >= price * minionGroup.minions.Count)
         {
             player.SpendMoney(price * minionGroup.minions.Count);
             curTime = 0f;

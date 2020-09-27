@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\CharacterDamageUI.cs" />
     <Compile Include="Assets\Scripts\CharacterUI.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\AggroByAttackEnemy.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\AutoAggroEnemy.cs" />
@@ -123,11 +124,13 @@
     <Compile Include="Assets\Scripts\SpellScripts\Spell.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\SpellUI.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\StunLaserSpell.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\AutoDestroyObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\CursorEnabler.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\DrawArrow.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\FleeObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\UtilScripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\PlayerTarget.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\RotateObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\SceneChanger.cs" />

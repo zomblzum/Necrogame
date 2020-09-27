@@ -51,11 +51,11 @@ public class StunLaserSpell : Spell
 			}
 			if (curTime >= 1f)
 			{
-				magicBehaviour.DryManaFromPlayer(price);
+				magicBehaviour.DryManaFromPlayer(usingPrice);
 				curTime = 0f;
 			}
 		} 
-		if (!magicBehaviour.HaveMana(price))
+		if (!magicBehaviour.HaveMana(usingPrice))
         {
 			StopCast();
         }

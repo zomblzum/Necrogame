@@ -105,7 +105,7 @@ public abstract class Minion : Character
     /// </summary>
     protected virtual void MoveCommand()
     {
-        if (moveTarget && minionCommand.commandName == "Defend")
+        if (moveTarget)
         {
             SetMovePoint(moveTarget.transform.position);
         }
@@ -127,9 +127,12 @@ public abstract class Minion : Character
         MoveCommand();
     }
 
-    public void ReturnToDefaultPosition()
+    /// <summary>
+    /// Возврат к цели перемещения(например после атаки)
+    /// </summary>
+    public virtual void ReturnToDefaultPosition()
     {
-        if (minionCommand.commandName == "Move" || minionCommand.commandName == "Defend")
+        if (moveTarget != null && underControl && (minionCommand.commandName == "Move" || minionCommand.commandName == "Defend"))
         {
             attackTarget = null;
             SetMovePoint(moveTarget.transform.position);
@@ -154,12 +157,12 @@ public abstract class Minion : Character
         }
     }
 
-    public override void Die()
+    public override void Die(string deathText)
     {
         minionBehaviour.RemoveMinion(this);
         Destroy(defendArea.gameObject);
         Destroy(fleeTarget.gameObject);
-        base.Die();
+        base.Die(deathText);
     }
 
     protected override void RunToEnemy()

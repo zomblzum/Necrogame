@@ -10,25 +10,19 @@ public class MagicBehaviour : SpellBehaviour
     [Header("Набор способностей")]
     public List<Spell> spells;
 
-    //private Player player;
-
     private int currentSpell;
-    private AttackBehaviour attackBehaviour;
 
     void Start()
     {
-        attackBehaviour = GetComponent<AttackBehaviour>();
-        //player = GetComponent<Player>();
-
         ChangeSpell(0);
     }
 
     void Update()
     {
         //Кастуем в любом режиме
-        if (!basicBehaviour.Stunned() && Input.GetButtonDown(castButton) && spells[currentSpell].coolDown <= 0f && HaveMana(spells[currentSpell].price))
+        if (!basicBehaviour.Stunned() && Input.GetButtonDown(castButton) && spells[currentSpell].coolDown <= 0f && HaveMana(spells[currentSpell].usingPrice))
         {
-            player.SpendMana(spells[currentSpell].price);
+            player.SpendMana(spells[currentSpell].usingPrice);
             spells[currentSpell].Cast();
             spells[currentSpell].StartCooldown();
         }

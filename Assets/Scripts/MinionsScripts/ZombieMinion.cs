@@ -14,7 +14,7 @@ public class ZombieMinion : Minion
         }
     }
 
-    public override void Die()
+    public override void Die(string deathText)
     {
         FindObjectOfType<MinionBehaviour>().RemoveMinion(this);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(new Vector3(0f, 0f)));
@@ -60,11 +60,6 @@ public class ZombieMinion : Minion
         underControl = true;
         targetsTags.Remove("Minion");
         targetsTags.Remove("Player");
-
-        if(GetCurrentTarget().GetComponent<Player>() != null)
-        {
-            SetAttackTarget(null);
-        }
 
         FindTargetsByTags();
         GetClosestTarget();

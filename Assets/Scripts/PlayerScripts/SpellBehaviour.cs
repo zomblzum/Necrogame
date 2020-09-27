@@ -14,12 +14,16 @@ public class SpellBehaviour : MonoBehaviour
     protected string fourthSpellButton = "Spell4";
     protected string castButton = "Spell";
 
-    protected Player player;
-    protected BasicBehaviour basicBehaviour;
+    public Player player;
+    public BasicBehaviour basicBehaviour;
+    //protected MagicBehaviour magicBehaviour;
+    public AttackBehaviour attackBehaviour;
 
     protected void Awake()
     {
         player = GetComponent<Player>();
         basicBehaviour = FindObjectOfType<BasicBehaviour>();
+        //magicBehaviour = FindObjectOfType<MagicBehaviour>();
+        attackBehaviour = FindObjectOfType<AttackBehaviour>();
     }
 }

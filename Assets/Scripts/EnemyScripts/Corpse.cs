@@ -12,6 +12,8 @@ public class Corpse : MonoBehaviour
     [Header("VFX при взрыве")] public GameObject explosionEffect;
     [Header("VFX радиуса взрыва")]  public List<ParticleSystem> explosionsAuraList;
     [Header("Воскрешаемый миньон")] public GameObject resurectedObject;
+    [Tooltip("так как у нас убитые персонажи исчезают, а на месте их сразу появляются трупы, то не видно последний полученный ими удар(т.к. канвас исчезает вместес мобов)")]
+    [Header("Интерфейс обработчик урона")] public CharacterDamageUI characterDamageUI;
 
     protected int deadBool;
     protected bool resurect = false;

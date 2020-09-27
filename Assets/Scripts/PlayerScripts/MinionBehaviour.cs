@@ -187,6 +187,18 @@ public class MinionBehaviour : SpellBehaviour
                 }
             }
             minionGroups[currentGroup].AddMinion(minion);
+
+            //Костыль для зомбей
+            if(minion.GetComponent<ZombieMinion>())
+            {
+                foreach (MinionGroup minionGroup in minionGroups)
+                {
+                    if (minionGroup.groupController.GetComponent<ZombieGroupZontroller>())
+                    {
+                        minionGroup.groupController.GetComponent<ZombieGroupZontroller>().GoOutConrolIfAboveMaxMinions();
+                    }
+                }
+            }
         }
         else if (minionGroups[currentGroup].minionType != minion.characterName)
         {
@@ -264,7 +276,15 @@ public class MinionBehaviour : SpellBehaviour
     {
         // Аналогично как с добавлением
         // Небольшое дублированние кода, но так он более очевидный и чистый
-        minionGroups[currentGroup].RemoveMinion(minion);
+
+        foreach (MinionGroup minionGroup in minionGroups)
+        {
+            if (minionGroup.minionType == minion.characterName)
+            {
+                minionGroup.RemoveMinion(minion);
+            }
+        }
+        minionGroups[0].RemoveMinion(minion);
 
         if (minionGroups[currentGroup].minionType == "All" || minionGroups[currentGroup].minionType == minion.characterName)
         {
