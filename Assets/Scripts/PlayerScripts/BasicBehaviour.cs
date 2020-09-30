@@ -350,6 +350,14 @@ public class BasicBehaviour : MonoBehaviour, IStunable
 
     public void StunForTime(float stunTime)
     {
+		if(stunTime > 0)
+        {
+			foreach(GenericBehaviour behaviour in behaviours)
+            {
+				behaviour.StopAction();
+            }
+        }
+
 		stunDuration = stunTime;
     }
 
@@ -384,6 +392,8 @@ public abstract class GenericBehaviour : MonoBehaviour
 	public virtual void LocalLateUpdate() { }
 	
 	public virtual void OnOverride() { }
+
+	public virtual void StopAction() { }
 
 	public int GetBehaviourCode()
 	{

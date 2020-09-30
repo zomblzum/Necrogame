@@ -10,6 +10,9 @@ public class CharacterDamageUI : MonoBehaviour
 
     public void SpawnDamageText(string text)
     {
+        if (text == "0")
+            text = "";
+
         GameObject spawnedText = Instantiate(damageText, damageSpawnPosition.transform);
         spawnedText.GetComponent<TextMeshProUGUI>().text = text;
     }

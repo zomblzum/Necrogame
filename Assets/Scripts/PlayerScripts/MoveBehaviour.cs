@@ -190,4 +190,9 @@ public class MoveBehaviour : GenericBehaviour
 	{
 		isColliding = false;
 	}
+
+	public override void StopAction()
+	{
+		behaviourManager.GetAnim.SetFloat(speedFloat, 0, speedDampTime, Time.deltaTime);
+	}
 }

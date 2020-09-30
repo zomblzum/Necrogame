@@ -46,7 +46,13 @@ public class AttackBehaviour : GenericBehaviour
     /// </summary>
     public void EndAttack()
     {
-        behaviourManager.GetAnim.SetBool(attackBool, false);
+        StopAction();
         weapon.HideWeapon();
+    }
+
+
+    public override void StopAction()
+    {
+        behaviourManager.GetAnim.SetBool(attackBool, false);
     }
 }

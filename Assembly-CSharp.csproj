@@ -63,7 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LightningBolt\LightningBoltScript.cs" />
+    <Compile Include="Assets\Prefabs\Imported\LightningBolt\LightningBoltScript.cs" />
+    <Compile Include="Assets\Scripts\AutoDestroyObject.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterDamageUI.cs" />
     <Compile Include="Assets\Scripts\CharacterUI.cs" />
@@ -74,9 +75,11 @@
     <Compile Include="Assets\Scripts\EnemyScripts\EnemyPriorityZone.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Villager.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\VillagerFleeObject.cs" />
+    <Compile Include="Assets\Scripts\FleeObject.cs" />
     <Compile Include="Assets\Scripts\IAttackable.cs" />
     <Compile Include="Assets\Scripts\IDieable.cs" />
     <Compile Include="Assets\Scripts\IStunable.cs" />
+    <Compile Include="Assets\Scripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\AllGroupController.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\AllGroupPositioner.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\BanditGroupController.cs" />
@@ -102,6 +105,11 @@
     <Compile Include="Assets\Scripts\MinionsScripts\ZombieGroupZontroller.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\ZombieMinion.cs" />
     <Compile Include="Assets\Scripts\MinionsScripts\ZombieSummoner.cs" />
+    <Compile Include="Assets\Scripts\MovingObject.cs" />
+    <Compile Include="Assets\Scripts\ObjectsScripts\GoldPickable.cs" />
+    <Compile Include="Assets\Scripts\ObjectsScripts\HealthPickable.cs" />
+    <Compile Include="Assets\Scripts\ObjectsScripts\ManaPickable.cs" />
+    <Compile Include="Assets\Scripts\PickableObject.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\AttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\BasicBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\FlyBehaviour.cs" />
@@ -114,6 +122,7 @@
     <Compile Include="Assets\Scripts\PlayerScripts\SpellBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\SummonBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\RotateObject.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\DamageBuff.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\DashSpell.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\EmperorSpellProjectile.cs" />
@@ -124,15 +133,10 @@
     <Compile Include="Assets\Scripts\SpellScripts\Spell.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\SpellUI.cs" />
     <Compile Include="Assets\Scripts\SpellScripts\StunLaserSpell.cs" />
-    <Compile Include="Assets\Scripts\UtilScripts\AutoDestroyObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\CursorEnabler.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\DrawArrow.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ExitGame.cs" />
-    <Compile Include="Assets\Scripts\UtilScripts\FleeObject.cs" />
-    <Compile Include="Assets\Scripts\UtilScripts\Interactable.cs" />
-    <Compile Include="Assets\Scripts\UtilScripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\PlayerTarget.cs" />
-    <Compile Include="Assets\Scripts\UtilScripts\RotateObject.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\UtilScripts\ThirdPersonOrbitCamBasic.cs" />
     <Compile Include="Assets\VFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
@@ -153,14 +157,14 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\VFX\Shaders\CFX3 Multiply Color.shader" />
-    <None Include="Assets\ManNeko_Assets\Adventurer Blake\Read Me.txt" />
-    <None Include="Assets\LightningBolt\Readme.txt" />
+    <None Include="Assets\Prefabs\Imported\ManNeko_Assets\Adventurer Blake\Read Me.txt" />
+    <None Include="Assets\Prefabs\Imported\LightningBolt\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\VFX\CartoonFX Free.txt" />
     <None Include="Assets\Prefabs\ForDev\EmaceArt\Slavic World Free\Plugin\Grass.shader" />
     <None Include="Assets\VFX\Particle Attractor by Moonflower Carnivore\Shaders\Particles Additive Intensify.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\AllSkyFree\AllSkyFree_Readme.txt" />
+    <None Include="Assets\Prefabs\Imported\AllSkyFree\AllSkyFree_Readme.txt" />
     <None Include="Assets\VFX\Particle Attractor by Moonflower Carnivore\Particle Attractor documentation.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />

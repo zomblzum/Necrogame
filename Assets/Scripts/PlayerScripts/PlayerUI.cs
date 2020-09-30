@@ -10,6 +10,9 @@ public class PlayerUI : MonoBehaviour
     [Header("Мана")] public Slider manaBar;
     [Header("Деньги")] public TextMeshProUGUI money;
 
+    [Header("Индикатор низкого здоровья")] public GameObject lowHealthIndicator;
+    [Header("Индикатор низкой маны")] public GameObject lowManaIndicator;
+
     /// <summary>
     /// Информация о здоровье
     /// </summary>

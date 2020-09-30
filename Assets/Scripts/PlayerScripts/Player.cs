@@ -71,16 +71,14 @@ public class Player : MonoBehaviour, IAttackable, IDieable
 
         if (curHealthTime >= healthRegenerateTime && curHealth < health)
         {
-            curHealth += 1;
             curHealthTime = 0;
-            playerUI.UpdateHealthBar(curHealth);
+            AddHealth(1);
         }
 
         if (curManaTime >= manaRegenerateTime && curMana < mana)
         {
-            curMana += 1;
             curManaTime = 0;
-            playerUI.UpdateManaBar(curMana);
+            AddMana(1);
         }
     }
 
@@ -111,8 +109,7 @@ public class Player : MonoBehaviour, IAttackable, IDieable
                 damage += damageBuff.GetAdditionalDamage(damage);
             }
             //Вычитаем суммированый урон
-            curHealth -= damage;
-            playerUI.UpdateHealthBar(curHealth);
+            SpendHealth(damage);
             if (curHealth <= 0)
             {
                 curHealth = 0;
@@ -135,11 +132,55 @@ public class Player : MonoBehaviour, IAttackable, IDieable
         curWaitingTime = 0f;
         curMana -= manaToSpend;
         playerUI.UpdateManaBar(curMana);
+
+        if ((float)curMana / (float)mana <= 0.3f && !playerUI.lowManaIndicator.activeSelf)
+        {
+            playerUI.lowManaIndicator.SetActive(true);
+        }
+    }
+    public void AddMana(int manaToAdd)
+    {
+        curMana += manaToAdd;
+        playerUI.UpdateManaBar(curMana);
+
+        if ((float)curMana / (float)mana > 0.3f && playerUI.lowManaIndicator.activeSelf)
+        {
+            playerUI.lowManaIndicator.SetActive(false);
+        }
+    }
+
+
+    public void SpendHealth(int healthToSpend)
+    {
+        curHealth -= healthToSpend;
+        playerUI.UpdateHealthBar(curHealth);
+
+        if ((float)curHealth / (float)health <= 0.3f && !playerUI.lowHealthIndicator.activeSelf)
+        {
+            playerUI.lowHealthIndicator.SetActive(true);
+        }
+    }
+
+    public void AddHealth(int healthToAdd)
+    {
+        curHealth += healthToAdd;
+        playerUI.UpdateHealthBar(curHealth);
+
+        if ((float)curHealth / (float)health > 0.3f && playerUI.lowHealthIndicator.activeSelf)
+        {
+            playerUI.lowHealthIndicator.SetActive(false);
+        }
     }
 
     public void SpendMoney(int moneyToSpend)
     {
         money -= moneyToSpend;
+        playerUI.UpdateMoneyText(money);
+    }
+
+    public void AddMoney(int moneyToAdd)
+    {
+        money += moneyToAdd;
         playerUI.UpdateMoneyText(money);
     }
 }
